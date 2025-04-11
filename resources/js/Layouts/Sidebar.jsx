@@ -25,22 +25,29 @@ export default function DashboardLayout({ children }) {
                         nombre: "Configurar",
                         menus: [
                             {
+                                id: 90,
+                                nombre: "Configuración",
+                                componente: [
+                                    { nombre: "Componentes", url: "/componente/vista"},
+                                    { nombre: "Menús", url: "/menu/vista"},
+                                    { nombre: "Menú - Componentes", url: "/configuracion/menu-componentes" },
+                                    { nombre: "Perfiles", url: "/perfil/"},
+                                    { nombre: "Perfil - Menú", url: "/configuracion/perfil-menu" },
+                                    { nombre: "Usuarios", url: "" },
+                                    { nombre: "Usuarios - Perfiles", url: "" },
+                                    { nombre: "Usuarios - Excepción", url: "" },
+                                ],
+                            },
+                            {
                                 id: 80,
                                 nombre: "Imibio",
                                 componente: [
                                     { nombre: "General", url: "/imibio" },
                                     { nombre: "Proyectos", url: "/imibio/proyectos" },
-                                    { nombre: "Configuraicon", url: "/configuracion/perfil-menu" },
+                                    
                                 ],
                             },
-                            {
-                                id: 90,
-                                nombre: "Administrar",
-                                componente: [
-                                    { nombre: "Usuario", url: "/usuarioperfilrelacion" },
-                                    { nombre: "Perfil", url: "/usuarioperfilrelacion" },
-                                ],
-                            },
+                            
                         ],
                     },
                 ],

@@ -5,6 +5,7 @@ import './../../../css/app.css';
 import Modal from 'react-modal';
 import CreatePerfil from './Create';
 import EditPerfil from './Edit';
+import DashboardLayout from '@/Layouts/Sidebar';
 Modal.setAppElement('#app');
 
 

@@ -29,7 +29,7 @@ const EditPerfil = ({ perfil, closeModal }) => {
                     <form onSubmit={submit}>
                         <div className="mb-3 row">
                             <div className="col-6">
-                                <label htmlFor="nombre" className="form-label">Nombre</label>
+                                <label htmlFor="nombre" className="form-label" readOnly>Nombre</label>
                                 <input
                                     id="nombre"
                                     type="text"
