@@ -23,7 +23,7 @@ class ComponenteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre'=>'required|regex:/^[\p{L}\p{N}\d\s\.\-]{1,180}$/u|unique:componente,nombre',
+            'nombre'=>'required|regex:/^[\p{L}\p{N}\d\s\.\-]{1,180}$/u|unique:componentes,nombre',
             'descripcion'=>'regex:/^[\p{L}\p{N}\d\s\.\-]{1,100}$/u',
             'informacion'=>'regex:/^[\p{L}\p{N}\d\s\.\-]{1,180}$/u',
             'url'=>'unique:componentes,url',

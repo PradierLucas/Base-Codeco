@@ -26,27 +26,33 @@ export default function DashboardLayout({ children }) {
                         menus: [
                             {
                                 id: 90,
-                                nombre: "Configuración",
+                                nombre: "Configurar",
                                 componente: [
                                     { nombre: "Componentes", url: "/componente/vista"},
-                                    { nombre: "Menús", url: "/menu/vista"},
-                                    { nombre: "Menú - Componentes", url: "/configuracion/menu-componentes" },
+                                    { nombre: "Menú", url: "/menu/vista"},
+                                    { nombre: "Menú Configurar", url: "/configuracion/menu-componentes" },
                                     { nombre: "Perfiles", url: "/perfil/"},
                                     { nombre: "Perfil - Menú", url: "/configuracion/perfil-menu" },
                                     { nombre: "Usuarios", url: "" },
-                                    { nombre: "Usuarios - Perfiles", url: "" },
-                                    { nombre: "Usuarios - Excepción", url: "" },
+                                    { nombre: "Perfil - Usuario", url: "" },
+                                    { nombre: "Usuario - Perfiles", url: "" },
+                                    { nombre: "Usuario - Excepciones", url: "" },
                                 ],
-                            },
+                            },{
+                            id: 12,
+                            nombre: "Administrar Sistema",
+                            componente:[
+                                { nombre: "Contactos", url: ""},
+                                { nombre: "Categorias", url: ""},
+                                { nombre: "Contacto - Categorias", url: ""},
+                            ],},
                             {
-                                id: 80,
-                                nombre: "Imibio",
-                                componente: [
-                                    { nombre: "General", url: "/imibio" },
-                                    { nombre: "Proyectos", url: "/imibio/proyectos" },
-                                    
-                                ],
-                            },
+                                id: 13,
+                                nombre: "Gestionar CRM",
+                                componente:[
+                                    { nombre: "Contactos", url: ""},
+                                    { nombre: "Contacto - Categorias", url: ""},
+                                ],},
                             
                         ],
                     },
@@ -117,7 +123,7 @@ export default function DashboardLayout({ children }) {
                     <h4 className="mb-4">CODECO</h4>
 
                     {/* Menú lateral */}
-                    <div className="container overflow-auto" style={{ maxHeight: "350px", minWidth: "250px", overflowY: "hidden" }}>
+                    <div className="container overflow-auto" style={{ maxHeight: "450px", minWidth: "250px", overflowY: "hidden" }}>
                         <ul className="nav flex-column">
                             {filteredUser &&
                                 filteredUser.perfiles.flatMap((perfil) =>

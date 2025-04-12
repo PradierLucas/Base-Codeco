@@ -26,11 +26,11 @@ class ComponenteUpdate extends FormRequest
         return [
             'nombre'=>['required',
             'regex:/^[\p{L}\p{N}\d\s\.\-]{1,180}$/u',
-            Rule::unique('componente','nombre')->ignore($this->componente->id)
+            Rule::unique('componentes','nombre')->ignore($this->componente->id)
         ],
             'descripcion'=>'regex:/^[\p{L}\p{N}\d\s\.\-]{1,100}$/u',
             'informacion'=>'regex:/^[\p{L}\p{N}\d\s\.\-]{1,180}$/u',
-            'url'=>Rule::unique('componente','url')->ignore($this->componente->id),
+            'url'=>Rule::unique('componentes','url')->ignore($this->componente->id),
             'sn_activo'=>'boolean',
         ];
     }

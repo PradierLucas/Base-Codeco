@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GeopaisSeeder::class);
         $this->call(GeolugaresSeeder::class);
         $this->call(GeoprovinciasregionesSeeder::class);
-        $this->call(CategoriaSeeder::class);
         $this->call(CondiciontributariasSeeder::class);
         $this->call(ContactoestadoSeeder::class);
         $this->call(ContactosituacioncivilesSeeder::class);
