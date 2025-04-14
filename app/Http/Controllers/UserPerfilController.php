@@ -42,7 +42,6 @@ public function actualizar(Request $request)
     $perfiles = $request->input('perfiles');
     $perfilesActivos = $request->input('perfilesActivos');
 
-    // Combinar los datos de componentes con sus estados y órdenes
     foreach ($perfiles as $perfil) {
         $perfilId = $perfil['id'];
 

@@ -12,6 +12,7 @@ class Componentes extends Model
         'descripcion',
         'informacion',
         'url',
+        'sn_modal',
         'sn_activo'
     ];
     public function usersExcepcion()

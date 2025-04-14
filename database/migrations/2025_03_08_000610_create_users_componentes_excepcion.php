@@ -15,6 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_componente');
             $table->primary(['id_user','id_componente']);
+            $table->boolean('sn_habilitado')->default(false);
             $table->timestamps();
             
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
