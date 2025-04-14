@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }) {
                                     { nombre: "Perfiles", url: "/perfil/"},
                                     { nombre: "Perfil - Menú", url: "/configuracion/perfil-menu" },
                                     { nombre: "Usuarios", url: "" },
-                                    { nombre: "Perfil - Usuario", url: "" },
+                                    { nombre: "Perfil - Usuario", url: "/configuracion/perfil-user" },
                                     { nombre: "Usuario - Perfiles", url: "" },
                                     { nombre: "Usuario - Excepciones", url: "" },
                                 ],

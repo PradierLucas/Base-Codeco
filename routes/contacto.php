@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactosController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactoradicacionesController;
 
 Route::prefix('contacto')->middleware('auth')->group(function () {
     Route::get('/index',[ContactosController::class,'index'])->name('contacto.index');
@@ -15,4 +16,8 @@ Route::prefix('contacto')->middleware('auth')->group(function () {
     Route::get('/search-paises', [ContactosController::class, 'searchPaises']);
     Route::get('/search-regiones', [ContactosController::class, 'searchRegiones']);
     Route::get('/search-prov', [ContactosController::class, 'searchProv']);
+
+    Route::get('/{id_contacto}/radicaciones', [ContactoradicacionesController::class, 'index'])->name('contacto.radicaciones');
+
+
 });

@@ -35,8 +35,6 @@ class ContactoRequest extends FormRequest
             "telefono_numero"=>"regex:/^[\p{N}\p{L}]{1,50}$/u",
             "mail_direccion"=> "required|email",
             "direccion_calle"=>"regex:/^[\p{N}\p{L}]{1,255}$/u",
-            "departamento_ciudad"=>"required|regex:/^[\p{N}\p{L}]{1,255}$/u",
-            "localidad"=>"required|regex:/^[\p{N}\p{L}]{1,255}$/u",
             "codigo_postal"=>"regex:/^[\p{N}\p{L}]{1,20}$/u",
         ];
     }

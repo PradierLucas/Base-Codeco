@@ -185,11 +185,11 @@ const Create = ({ auth }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-4 row">
-                                <div className="col-6">
+                            <div className="my-4 row d-flex justify-content-between">
+                                <div className="col-5">
 
                                 </div>
-                                <div className="col-6 d-flex justify-content-between">
+                                <div className="col-5 d-flex justify-content-between">
                                     <button
                                         type="button"
                                         className="btn btn-secondary"
@@ -202,7 +202,7 @@ const Create = ({ auth }) => {
                                     </button>
                                     <button type='submit'
                                         className='btn btn-primary'
-                                        onClick={handleSubmit}>Guardar Cambios</button>
+                                        onClick={handleSubmit}>Guardar</button>
                                 </div>
                             </div>
                         </form>

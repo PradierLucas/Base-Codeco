@@ -1,14 +1,17 @@
-import React, { useState } from 'react'; // Asegúrate de importar useState desde React
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import Modal from 'react-modal';
+
+
+
 import './styles.css';
-import DashboardLayout from '@/Layouts/Sidebar';
 Modal.setAppElement('#app');
 
+import Swal from 'sweetalert2';
+import DashboardLayout from '@/Layouts/Sidebar';
+
 const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributarias }) => {
-
-
 
     const initialValues = {
         id_fisicojuridico: '',
@@ -22,7 +25,6 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
         id_condiciontributaria: '',
         id_identidadtributaria: '',
         id_identidadtributaria_dato: 'a',
-
         mail_direccion: '',
         telefono_numero: '',
         telefono_sn_movil: false,
@@ -31,13 +33,10 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
         id_subregion: '',
         direccion_calle: '',
         codigo_postal: '',
-
-
     };
 
     const { data, errors, setData, post, reset } = useForm(initialValues);
 
-    // Definir los estados nombre, apellido y segundo
     const [nombre, setNombre] = useState('Nombre');
     const [apellido, setApellido] = useState('Apellido');
     const [segundo, setSegundo] = useState('1');
@@ -45,40 +44,44 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('contacto.store'));
+        post(route('contacto.store'), {
+            onSuccess: () => {
+                Swal.fire({
+                    title: 'Contacto Creado',
+                    text: 'El contacto ha sido creado exitosamente.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                reset();
+            }
+        });
     };
 
-    // Estado para el modal de búsqueda de países
     const [isPaisModalOpen, setIsPaisModalOpen] = useState(false);
     const [paisSearchQuery, setPaisSearchQuery] = useState('');
     const [paisSearchResults, setPaisSearchResults] = useState([]);
     const [paisCurrentPage, setPaisCurrentPage] = useState(1);
     const [paisLastPage, setPaisLastPage] = useState(1);
-    const [nombrePais, setNombrePais] = useState(''); // Estado para el nombre del país
+    const [nombrePais, setNombrePais] = useState('');
 
-    // Estado para el modal de búsqueda de regiones
     const [isRegionModalOpen, setIsRegionModalOpen] = useState(false);
     const [regionSearchQuery, setRegionSearchQuery] = useState('');
     const [regionSearchResults, setRegionSearchResults] = useState([]);
     const [regionCurrentPage, setRegionCurrentPage] = useState(1);
     const [regionLastPage, setRegionLastPage] = useState(1);
-    const [nombreRegion, setNombreRegion] = useState(''); // Estado para el nombre de la región
+    const [nombreRegion, setNombreRegion] = useState('');
 
-
-    // Estado para el modal de búsqueda de provincias
     const [isProvinciaModalOpen, setIsProvinciaModalOpen] = useState(false);
     const [provinciaSearchQuery, setProvinciaSearchQuery] = useState('');
     const [provinciaSearchResults, setProvinciaSearchResults] = useState([]);
     const [provinciaCurrentPage, setProvinciaCurrentPage] = useState(1);
     const [provinciaLastPage, setProvinciaLastPage] = useState(1);
-    const [nombreProvincia, setNombreProvincia] = useState(''); // Estado para el nombre de la provincia
+    const [nombreProvincia, setNombreProvincia] = useState('');
 
-    // Función para abrir el modal de búsqueda de provincias
     const openProvinciaModal = () => {
         setIsProvinciaModalOpen(true);
     };
 
-    // Función para realizar la búsqueda de provincias
     const fetchProvinciaSearchResults = async (page = 1) => {
         try {
             const response = await fetch(`/contacto/search-prov?query=${provinciaSearchQuery}&page=${page}`);
@@ -92,49 +95,36 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
         }
     };
 
-    // Función para manejar cambios en el campo de búsqueda de provincias
     const handleProvinciaSearchChange = (e) => {
         setProvinciaSearchQuery(e.target.value);
-        fetchProvinciaSearchResults(); // Realiza la búsqueda automáticamente
+        fetchProvinciaSearchResults();
     };
 
-    // Función para seleccionar una provincia
     const handleSelectProvincia = (provincia) => {
-        data.id_provincia = provincia.id; // Actualiza el campo del formulario
+        data.id_provincia = provincia.id;
         setNombreProvincia(provincia.descripcion);
-        closeModal(); // Cierra el modal
+        closeModal();
     };
 
-
-
-
-    // Función para abrir el modal de búsqueda de países
     const openPaisModal = () => {
         setIsPaisModalOpen(true);
     };
 
-
-
-    // Función para abrir el modal de búsqueda de regiones
     const openRegionModal = () => {
         setIsRegionModalOpen(true);
-
     };
-
-    // Función para cerrar el modal de búsqueda de regiones
     const closeModal = () => {
         setIsRegionModalOpen(false);
-        setRegionSearchResults([]); // Limpia los resultados de la búsqueda
-        setRegionSearchQuery(''); // Limpia los resultados de la búsqueda
+        setRegionSearchResults([]);
+        setRegionSearchQuery('');
         setIsPaisModalOpen(false);
         setPaisSearchResults([]);
-        setPaisSearchQuery(''); // Limpia los resultados de la búsqueda
+        setPaisSearchQuery('');
         setIsProvinciaModalOpen(false);
         setProvinciaSearchResults([]);
-        setProvinciaSearchQuery(''); // Limpia los resultados
+        setProvinciaSearchQuery('');
     };
 
-    // Función para realizar la búsqueda de países
     const fetchPaisSearchResults = async (page = 1) => {
         try {
             const response = await fetch(`/contacto/search-paises?query=${paisSearchQuery}&page=${page}`);
@@ -148,7 +138,6 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
         }
     };
 
-    // Función para realizar la búsqueda de regiones
     const fetchRegionSearchResults = async (page = 1) => {
         try {
             const response = await fetch(`/contacto/search-regiones?query=${regionSearchQuery}&page=${page}`);
@@ -162,445 +151,415 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
         }
     };
 
-    // Función para manejar cambios en el campo de búsqueda de países
     const handlePaisSearchChange = (e) => {
         setPaisSearchQuery(e.target.value);
-        fetchPaisSearchResults(); // Realiza la búsqueda automáticamente
+        fetchPaisSearchResults();
     };
 
-    // Función para manejar cambios en el campo de búsqueda de regiones
     const handleRegionSearchChange = (e) => {
         setRegionSearchQuery(e.target.value);
-        fetchRegionSearchResults(); // Realiza la búsqueda automáticamente
+        fetchRegionSearchResults();
     };
 
-    // Función para seleccionar un país
     const handleSelectPais = (pais) => {
-        data.id_pais = pais.id; // Actualiza el campo del formulario
+        data.id_pais = pais.id;
         setNombrePais(pais.nombre);
-        closeModal(); // Cierra el modal
+        closeModal();
     };
 
-    // Función para seleccionar una región
     const handleSelectRegion = (region) => {
-        data.id_subregion = region.id; // Actualiza el campo del formulario
+        data.id_subregion = region.id;
         setNombreRegion(region.descripcion);
-        closeModal(); // Cierra el modal
+        closeModal();
     };
-
-
-
-
-    debugger
-
 
     return (
+
+        <>
+
         <DashboardLayout>
-            <div className="d-flex justify-content-between align-items-center">
-                <h2 className="font-weight-bold">Crear Contacto</h2>
-                <Link href={route('contacto.index')} className="btn btn-primary">Contactos</Link>
-            </div>
+            <h3 className="text-center ">Crear Contacto</h3>
+
+            <div className="container">
+                <div className="row">
 
 
-            <div className="py-5">
-                <div className="container">
-                    <div className="card shadow-sm">
-                        <div className="card-body">
-                            <form onSubmit={submit} className="row g-3">
-                                {/*  Información Personal  */}
-                                <h4 className="mb-3">Información Personal</h4>
 
-                                <div className="col-md-6">
-                                    <label htmlFor="persona" className="form-label">Persona</label>
-                                    <select
-                                        id="persona"
-                                        name="persona"
-                                        value={data.id_fisicojuridico}
-                                        onChange={(e) => {
-                                            const selectedId = e.target.value;
-                                            setData('id_fisicojuridico', selectedId);
 
-                                            const selectedPersona = fisicojuridico.find(persona => persona.id == selectedId);
-                                            console.log(selectedPersona);
-                                            if (selectedPersona) {
-                                                setNombre(selectedPersona.texto_nombre);
-                                                setApellido(selectedPersona.texto_apellido);
-                                                setSegundo(selectedPersona.sn_segundonombre);  // Asigna el valor de segundo nombre
-                                                // Otros campos si son necesarios
-                                            }
-                                        }}
-                                        className="form-select"
-                                    >
-                                        <option value="">Seleccionar</option>
-                                        {fisicojuridico.slice(1).map((condicion) => (
-                                            <option key={condicion.id} value={condicion.id}>
-                                                {condicion.descripcion}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {errors.id_fisicojuridico && <div className="text-danger mt-1">{errors.id_fisicojuridico}</div>}
+                    <main className="col-md-12  col-lg-12 ">
+                        <div className="py-5">
+                            <div className="card shadow-sm">
+                                <div className="card-body">
+                                    <form onSubmit={submit} className="row g-3">
+                                        {/* Form content */}
+                                        <h4 className="mb-3">Información Personal</h4>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="persona" className="form-label">Persona</label>
+                                            <select
+                                                id="persona"
+                                                name="persona"
+                                                value={data.id_fisicojuridico}
+                                                onChange={(e) => {
+                                                    const selectedId = e.target.value;
+                                                    setData('id_fisicojuridico', selectedId);
+
+                                                    const selectedPersona = fisicojuridico.find(persona => persona.id == selectedId);
+                                                    console.log(selectedPersona);
+                                                    if (selectedPersona) {
+                                                        setNombre(selectedPersona.texto_nombre);
+                                                        setApellido(selectedPersona.texto_apellido);
+                                                        setSegundo(selectedPersona.sn_segundonombre);
+                                                    }
+                                                }}
+                                                className="form-select"
+                                            >
+                                                <option value="">Seleccionar</option>
+                                                {fisicojuridico.slice(1).map((condicion) => (
+                                                    <option key={condicion.id} value={condicion.id}>
+                                                        {condicion.descripcion}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.id_fisicojuridico && <div className="text-danger mt-1">{errors.id_fisicojuridico}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="apellido" className="form-label">{apellido}</label>
+                                            <input
+                                                id="apellido"
+                                                type="text"
+                                                name="apellido"
+                                                value={data.apellidorazonsocial}
+                                                className="form-control"
+                                                onChange={(e) => setData('apellidorazonsocial', e.target.value)}
+                                            />
+                                            {errors.apellido && <div className="text-danger mt-1">{errors.apellido}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="nombre" className="form-label">{nombre}</label>
+                                            <input
+                                                id="nombre"
+                                                type="text"
+                                                name="nombre"
+                                                value={data.nombrefantasia}
+                                                className="form-control"
+                                                onChange={(e) => setData('nombrefantasia', e.target.value)}
+                                            />
+                                            {errors.nombre && <div className="text-danger mt-1">{errors.nombre}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="segundoNombre" className="form-label">Segundo Nombre</label>
+                                            <input
+                                                id="segundoNombre"
+                                                type="text"
+                                                name="segundoNombre"
+                                                value={data.nombresegundo}
+                                                className="form-control"
+                                                disabled={segundo === 0}
+                                                onChange={(e) => setData('nombresegundo', e.target.value)}
+                                            />
+                                            {errors.segundoNombre && <div className="text-danger mt-1">{errors.segundoNombre}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="pais" className="form-label">País</label>
+                                            <div className="input-group">
+                                                <input
+                                                    id="pais"
+                                                    type="text"
+                                                    name="pais"
+                                                    value={nombrePais}
+                                                    className="form-control"
+                                                    readOnly
+                                                />
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-secondary"
+                                                    onClick={openPaisModal}
+                                                >
+                                                    Buscar
+                                                </button>
+                                            </div>
+                                            {errors.id_pais && <div className="text-danger mt-1">{errors.id_pais}</div>}
+                                        </div>
+
+                                        <hr></hr>
+                                        <h4 className="mt-4 mb-3">Información Tributaria</h4>
+
+                                        <div className="col-md-8">
+                                            <label htmlFor="condicionTributaria" className="form-label">Condición </label>
+                                            <select
+                                                id="condicionTributaria"
+                                                name="condicionTributaria"
+                                                value={data.id_condiciontributaria}
+                                                onChange={(e) => setData('id_condiciontributaria', e.target.value)}
+                                                className="form-select"
+                                            >
+                                                <option value="">Seleccionar</option>
+                                                {condicionestributarias.map((condicion) => (
+                                                    <option key={condicion.id} value={condicion.id}>
+                                                        {condicion.descripcion}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.id_condiciontributaria && <div className="text-danger mt-1">{errors.id_condiciontributaria}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="identidadTributaria" className="form-label">Identidad Tributaria</label>
+                                            <select
+                                                id="identidadTributaria"
+                                                name="identidadTributaria"
+                                                value={data.id_identidadtributaria}
+                                                onChange={(e) => {
+                                                    const selectedId = e.target.value;
+                                                    setData('id_identidadtributaria', selectedId);
+
+                                                    const selectedIdentidad = identidades.find(identidad => identidad.id == selectedId);
+                                                    if (selectedIdentidad) {
+                                                        setMascaraTributaria(selectedIdentidad.dato_mascara);
+                                                    }
+                                                }}
+                                                className="form-select"
+                                            >
+                                                <option value="">Seleccionar</option>
+                                                {data.id_fisicojuridico == 2
+                                                    ? identidades.filter(identidad => identidad.sn_juridica == 1).map((identidad) => (
+                                                        <option key={identidad.id} value={identidad.id}>
+                                                            {identidad.descripcion}
+                                                        </option>
+                                                    ))
+                                                    : identidades.filter(identidad => identidad.sn_juridica == 0).map((identidad) => (
+                                                        <option key={identidad.id} value={identidad.id}>
+                                                            {identidad.descripcion}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </select>
+                                            {errors.id_identidadtributaria && <div className="text-danger mt-1">{errors.id_identidadtributaria}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="valorIdTributaria" className="form-label">Valor</label>
+                                            <input
+                                                id="valorIdTributaria"
+                                                type="text"
+                                                placeholder={mascaraTributaria}
+                                                maxLength={mascaraTributaria.length}
+                                                name="valorIdTributaria"
+                                                value={data.id_identidadtributaria_dato}
+                                                className="form-control"
+                                                onChange={(e) => setData('id_identidadtributaria_dato', e.target.value)}
+                                                disabled={data.id_identidadtributaria === "1"}
+                                            />
+                                            {errors.id_identidadtributaria_dato && <div className="text-danger mt-1">{errors.id_identidadtributaria_dato}</div>}
+                                        </div>
+
+                                        <hr></hr>
+
+                                        <h4 className="mt-4 mb-3">Información Personal</h4>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="identidadPersonal" className="form-label">Identidad Personal</label>
+                                            <select
+
+                                                disabled={data.id_fisicojuridico == '2'}
+                                                id="identidadTributaria"
+                                                name="identidadTributaria"
+                                                value={data.id_personal}
+                                                onChange={(e) => {
+                                                    const selectedIdPersonal = e.target.value;
+                                                    setData('id_personal', selectedIdPersonal);
+
+                                                    const selectedPersonal = identidades.find(identidad => identidad.id == selectedIdPersonal);
+                                                    if (selectedPersonal) {
+                                                        setMascaraTributaria(selectedPersonal.dato_mascara);
+                                                    }
+                                                }}
+                                                className="form-select"
+                                            >
+                                                <option value="">Seleccionar</option>
+                                                {identidades.filter(identidad => identidad.sn_juridica == 0).map((identidad) => (
+                                                    <option key={identidad.id} value={identidad.id}>
+                                                        {identidad.descripcion}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.id_personal && <div className="text-danger mt-1">{errors.id_personal}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="valorIdPersona" className="form-label">Valor</label>
+                                            <input
+                                                id="valorIdPersona"
+                                                type="text"
+                                                name="valorIdPersona"
+                                                value={data.id_personal_dato}
+                                                className="form-control"
+                                                onChange={(e) => setData('id_personal_dato', e.target.value)}
+                                                disabled={data.id_fisicojuridico == '2'}
+                                            />
+                                            {errors.id_personal_dato && <div className="text-danger mt-1">{errors.id_personal_dato}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <p>El código de acceso rápido es un número rápido e identificatorio para el contacto. Se recomienda usar los dos primeros y los tres últimos dígitos del CUIT. Por ejemplo: 20-12345678-9 = 12789</p>
+                                        </div>
+
+                                        <div className="col-md-4">
+                                            <label htmlFor="codigoAccesoRapido" className="form-label">Código de Acceso Rápido</label>
+                                            <input
+                                                id="codigoAccesoRapido"
+                                                type="text"
+                                                name="codigoAccesoRapido"
+                                                value={data.car}
+                                                className="form-control"
+                                                onChange={(e) => setData('car', e.target.value)}
+                                            />
+                                            {errors.car && <div className="text-danger mt-1">{errors.car}</div>}
+                                        </div>
+                                        <hr />
+                                        <h4 className="mt-4 mb-3">Domicilio</h4>
+                                        <div className="col-md-6">
+                                            <label htmlFor="provincia" className="form-label">Provincia</label>
+                                            <div className="input-group">
+                                                <input
+                                                    id="provincia"
+                                                    type="text"
+                                                    name="provincia"
+                                                    value={nombreProvincia}
+                                                    className="form-control"
+                                                    readOnly
+                                                />
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-secondary"
+                                                    onClick={openProvinciaModal}
+                                                >
+                                                    Buscar
+                                                </button>
+                                            </div>
+                                            {errors.id_provincia && <div className="text-danger mt-1">{errors.id_provincia}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="region" className="form-label">Región</label>
+                                            <div className="input-group">
+                                                <input
+                                                    id="region"
+                                                    type="text"
+                                                    name="region"
+                                                    value={nombreRegion}
+                                                    className="form-control"
+                                                    readOnly
+                                                />
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-secondary"
+                                                    onClick={openRegionModal}
+                                                >
+                                                    Buscar
+                                                </button>
+                                            </div>
+                                            {errors.id_subregion && <div className="text-danger mt-1">{errors.id_subregion}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="domicilio" className="form-label">Domicilio</label>
+                                            <input
+                                                id="domicilio"
+                                                type="text"
+                                                name="domicilio"
+                                                value={data.direccion_calle}
+                                                className="form-control"
+                                                onChange={(e) => setData('direccion_calle', e.target.value)}
+                                            />
+                                            {errors.direccion_calle && <div className="text-danger mt-1">{errors.direccion_calle}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="codigoPostal" className="form-label">Código Postal</label>
+                                            <input
+                                                id="codigoPostal"
+                                                type="text"
+                                                name="codigoPostal"
+                                                value={data.codigo_postal}
+                                                className="form-control"
+                                                onChange={(e) => setData('codigo_postal', e.target.value)}
+                                            />
+                                            {errors.codigo_postal && <div className="text-danger mt-1">{errors.codigo_postal}</div>}
+                                        </div>
+
+                                        <div className="col-md-3">
+                                            <label htmlFor="telefono_numero" className="form-label">Teléfono </label>
+                                            <input
+                                                id="telefono_numero"
+                                                type="text"
+                                                name="telefono_numero"
+                                                value={data.telefono_numero}
+                                                className="form-control"
+                                                onChange={(e) => setData('telefono_numero', e.target.value)}
+                                            />
+                                            {errors.telefono_numero && <div className="text-danger mt-1">{errors.telefono_numero}</div>}
+                                        </div>
+
+                                        <div className="col-md-3 mt-5">
+
+                                            <div className="form-check">
+                                                <input
+                                                    id="telefono_sn_movil"
+                                                    type="checkbox"
+                                                    name="telefono_sn_movil"
+                                                    className="form-check-input"
+                                                    checked={data.telefono_sn_movil}
+                                                    onChange={(e) => setData('telefono_sn_movil', e.target.checked)}
+                                                />
+                                                <label className="form-check-label" htmlFor="telefono_sn_movil">
+                                                    Es móvil
+                                                </label>
+                                            </div>
+                                            {errors.telefono_sn_movil && <div className="text-danger mt-1">{errors.telefono_sn_movil}</div>}
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="email" className="form-label">Correo Electrónico</label>
+                                            <input
+                                                id="email"
+                                                type="email"
+                                                name="email"
+                                                value={data.mail_direccion}
+                                                className="form-control"
+                                                onChange={(e) => setData('mail_direccion', e.target.value)}
+                                            />
+                                            {errors.mail_direccion && <div className="text-danger mt-1">{errors.mail_direccion}</div>}
+                                        </div>
+                                        <hr></hr>
+                                        <div className="col-md-12">
+                                            <label htmlFor="observacion" className="form-label"><h4>Observación</h4></label>
+                                            <textarea
+                                                id="observacion"
+                                                name="observacion"
+                                                value={data.observacion}
+                                                className="form-control"
+                                                onChange={(e) => setData('observacion', e.target.value)}
+                                            />
+                                            {errors.observacion && <div className="text-danger mt-1">{errors.observacion}</div>}
+                                        </div>
+
+                                        {/* Botones */}
+                                        <div className="col-12 d-flex justify-content-end mt-4 gap-2">
+                                            <button type="submit" className="btn btn-success">Guardar</button>
+                                            <button type="button" className="btn btn-secondary" onClick={() => reset()}>Limpiar</button>
+
+                                        </div>
+                                    </form>
                                 </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="apellido" className="form-label">{apellido}</label>
-                                    <input
-                                        id="apellido"
-                                        type="text"
-                                        name="apellido"
-                                        value={data.apellidorazonsocial}
-                                        className="form-control"
-                                        onChange={(e) => setData('apellidorazonsocial', e.target.value)}
-                                    />
-                                    {errors.apellido && <div className="text-danger mt-1">{errors.apellido}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="nombre" className="form-label">{nombre}</label>
-                                    <input
-                                        id="nombre"
-                                        type="text"
-                                        name="nombre"
-                                        value={data.nombrefantasia}
-                                        className="form-control"
-                                        onChange={(e) => setData('nombrefantasia', e.target.value)}
-                                    />
-                                    {errors.nombre && <div className="text-danger mt-1">{errors.nombre}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="segundoNombre" className="form-label">Segundo Nombre</label>
-                                    <input
-                                        id="segundoNombre"
-                                        type="text"
-                                        name="segundoNombre"
-                                        value={data.nombresegundo}
-                                        className="form-control"
-                                        disabled={segundo === 0}  // Deshabilita si "segundo" es igual a "0"
-                                        onChange={(e) => setData('nombresegundo', e.target.value)}
-                                    />
-                                    {errors.segundoNombre && <div className="text-danger mt-1">{errors.segundoNombre}</div>}
-                                </div>
-
-
-                                {/*    <div className="col-md-6">
-                                    <label htmlFor="foto" className="form-label">Foto  </label>
-                                    <input
-                                        id="foto"
-                                        type="file"
-                                        name="foto"
-                                        className="form-control"
-                                        onChange={(e) => setData('foto', e.target.files[0])}
-                                    />
-                                    {errors.foto && <div className="text-danger mt-1">{errors.foto}</div>}
-                                </div>
- */}
-                                <div className="col-md-6">
-                                    <label htmlFor="pais" className="form-label">País</label>
-                                    <div className="input-group">
-                                        <input
-                                            id="pais"
-                                            type="text"
-                                            name="pais"
-                                            value={nombrePais}
-                                            className="form-control"
-                                            readOnly // El campo es de solo lectura
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-outline-secondary"
-                                            onClick={openPaisModal}
-                                        >
-                                            Buscar
-                                        </button>
-                                    </div>
-                                    {errors.id_pais && <div className="text-danger mt-1">{errors.id_pais}</div>}
-                                </div>
-
-                                <hr></hr>
-                                {/* 
-                                Condición Tributaria  */}
-                                <h4 className="mt-4 mb-3">Información Tributaria</h4>
-
-                                <div className="col-md-8">
-                                    <label htmlFor="condicionTributaria" className="form-label">Condición </label>
-                                    <select
-                                        id="condicionTributaria"
-                                        name="condicionTributaria"
-                                        value={data.id_condiciontributaria}
-                                        onChange={(e) => setData('id_condiciontributaria', e.target.value)}
-                                        className="form-select"
-                                    >
-                                        <option value="">Seleccionar</option>
-                                        {condicionestributarias.map((condicion) => (
-                                            <option key={condicion.id} value={condicion.id}>
-                                                {condicion.descripcion}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {errors.id_condiciontributaria && <div className="text-danger mt-1">{errors.id_condiciontributaria}</div>}
-                                </div>
-
-
-
-                                <div className="col-md-6">
-                                    <label htmlFor="identidadTributaria" className="form-label">Identidad Tributaria</label>
-                                    <select
-                                        id="identidadTributaria"
-                                        name="identidadTributaria"
-                                        value={data.id_identidadtributaria}
-                                        onChange={(e) => {
-                                            const selectedId = e.target.value;
-                                            setData('id_identidadtributaria', selectedId);
-
-                                            const selectedIdentidad = identidades.find(identidad => identidad.id == selectedId);
-                                            if (selectedIdentidad) {
-                                                setMascaraTributaria(selectedIdentidad.dato_mascara);
-                                            }
-                                        }}
-                                        className="form-select"
-                                    >
-                                        <option value="">Seleccionar</option>
-                                        {data.id_fisicojuridico == 2
-                                            ? identidades.filter(identidad => identidad.sn_juridica == 1).map((identidad) => (
-                                                <option key={identidad.id} value={identidad.id}>
-                                                    {identidad.descripcion}
-                                                </option>
-                                            ))
-                                            : identidades.filter(identidad => identidad.sn_juridica == 0).map((identidad) => (
-                                                <option key={identidad.id} value={identidad.id}>
-                                                    {identidad.descripcion}
-                                                </option>
-                                            ))
-                                        }
-                                    </select>
-                                    {errors.id_identidadtributaria && <div className="text-danger mt-1">{errors.id_identidadtributaria}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="valorIdTributaria" className="form-label">Valor</label>
-                                    <input
-                                        id="valorIdTributaria"
-                                        type="text"
-                                        placeholder={mascaraTributaria}
-                                        maxLength={mascaraTributaria.length} // Limita a 8 caracteres si el ID es 1
-                                        name="valorIdTributaria"
-                                        value={data.id_identidadtributaria_dato}
-                                        className="form-control"
-                                        onChange={(e) => setData('id_identidadtributaria_dato', e.target.value)}
-                                        disabled={data.id_identidadtributaria === "1"} // Deshabilita si el ID es 1
-                                    />
-                                    {errors.id_identidadtributaria_dato && <div className="text-danger mt-1">{errors.id_identidadtributaria_dato}</div>}
-                                </div>
-
-                                <hr></hr>
-
-                                <h4 className="mt-4 mb-3">Información Personal</h4>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="identidadPersonal" className="form-label">Identidad Personal</label>
-                                    <select
-
-                                        disabled={data.id_fisicojuridico == '2'}
-                                        id="identidadTributaria"
-                                        name="identidadTributaria"
-                                        value={data.id_personal}
-                                        onChange={(e) => {
-                                            const selectedIdPersonal = e.target.value;
-                                            setData('id_personal', selectedIdPersonal);
-
-                                            const selectedPersonal = identidades.find(identidad => identidad.id == selectedIdPersonal);
-                                            if (selectedPersonal) {
-                                                setMascaraTributaria(selectedPersonal.dato_mascara);
-                                            }
-                                        }}
-                                        className="form-select"
-                                    >
-                                        <option value="">Seleccionar</option>
-                                        {identidades.filter(identidad => identidad.sn_juridica == 0).map((identidad) => (
-                                            <option key={identidad.id} value={identidad.id}>
-                                                {identidad.descripcion}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {errors.id_personal && <div className="text-danger mt-1">{errors.id_personal}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="valorIdPersona" className="form-label">Valor</label>
-                                    <input
-                                        id="valorIdPersona"
-                                        type="text"
-                                        name="valorIdPersona"
-                                        value={data.id_personal_dato}
-                                        className="form-control"
-                                        onChange={(e) => setData('id_personal_dato', e.target.value)}
-                                        disabled={data.id_fisicojuridico == '2'}
-                                    />
-                                    {errors.id_personal_dato && <div className="text-danger mt-1">{errors.id_personal_dato}</div>}
-                                </div>
-
-
-                                <div className="col-md-6">
-                                    <p>El código de acceso rápido es un número rápido e identificatorio para el contacto. Se recomienda usar los dos primeros y los tres últimos dígitos del CUIT. Por ejemplo: 20-12345678-9 = 12789</p>
-                                </div>
-
-                                <div className="col-md-4">
-                                    <label htmlFor="codigoAccesoRapido" className="form-label">Código de Acceso Rápido</label>
-                                    <input
-                                        id="codigoAccesoRapido"
-                                        type="text"
-                                        name="codigoAccesoRapido"
-                                        value={data.car}
-                                        className="form-control"
-                                        onChange={(e) => setData('car', e.target.value)}
-                                    />
-                                    {errors.car && <div className="text-danger mt-1">{errors.car}</div>}
-
-
-                                </div>
-                                <hr />
-                                <h4 className="mt-4 mb-3">Domicilio</h4>
-                                <div className="col-md-6">
-                                    <label htmlFor="provincia" className="form-label">Provincia</label>
-                                    <div className="input-group">
-                                        <input
-                                            id="provincia"
-                                            type="text"
-                                            name="provincia"
-                                            value={nombreProvincia}
-                                            className="form-control"
-                                            readOnly
-                                        // El campo es de solo lectura
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-outline-secondary"
-                                            onClick={openProvinciaModal}
-                                        >
-                                            Buscar
-                                        </button>
-                                    </div>
-                                    {errors.id_provincia && <div className="text-danger mt-1">{errors.id_provincia}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="region" className="form-label">Región</label>
-                                    <div className="input-group">
-                                        <input
-                                            id="region"
-                                            type="text"
-                                            name="region"
-                                            value={nombreRegion}
-                                            className="form-control"
-                                            readOnly
-                                        // El campo es de solo lectura
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-outline-secondary"
-                                            onClick={openRegionModal}
-                                        >
-                                            Buscar
-                                        </button>
-                                    </div>
-                                    {errors.id_subregion && <div className="text-danger mt-1">{errors.id_subregion}</div>}
-                                </div>
-
-                                <div className="col-md-6">
-                                    <label htmlFor="domicilio" className="form-label">Domicilio</label>
-                                    <input
-                                        id="domicilio"
-                                        type="text"
-                                        name="domicilio"
-                                        value={data.direccion_calle}
-                                        className="form-control"
-                                        onChange={(e) => setData('direccion_calle', e.target.value)}
-                                    />
-                                    {errors.direccion_calle && <div className="text-danger mt-1">{errors.direccion_calle}</div>}
-                                </div>
-
-
-
-                                <div className="col-md-6">
-                                    <label htmlFor="codigoPostal" className="form-label">Código Postal</label>
-                                    <input
-                                        id="codigoPostal"
-                                        type="text"
-                                        name="codigoPostal"
-                                        value={data.codigoPostal}
-                                        className="form-control"
-                                        onChange={(e) => setData('codigoPostal', e.target.value)}
-                                    />
-                                    {errors.codigoPostal && <div className="text-danger mt-1">{errors.codigoPostal}</div>}
-                                </div>
-
-                                <div className="col-md-3">
-                                    <label htmlFor="telefono_numero" className="form-label">Teléfono </label>
-                                    <input
-                                        id="telefono_numero"
-                                        type="text"
-                                        name="telefono_numero"
-                                        value={data.telefono_numero}
-                                        className="form-control"
-                                        onChange={(e) => setData('telefono_numero', e.target.value)}
-                                    />
-                                    {errors.telefono_numero && <div className="text-danger mt-1">{errors.telefono_numero}</div>}
-                                </div>
-
-                                <div className="col-md-3 mt-5">
-
-                                    <div className="form-check">
-                                        <input
-                                            id="telefono_sn_movil"
-                                            type="checkbox"
-                                            name="telefono_sn_movil"
-                                            className="form-check-input"
-                                            checked={data.telefono_sn_movil}
-                                            onChange={(e) => setData('telefono_sn_movil', e.target.checked)}
-                                        />
-                                        <label className="form-check-label" htmlFor="telefono_sn_movil">
-                                            Es móvil
-                                        </label>
-                                    </div>
-                                    {errors.telefono_sn_movil && <div className="text-danger mt-1">{errors.telefono_sn_movil}</div>}
-                                </div>
-
-
-
-                                <div className="col-md-6">
-                                    <label htmlFor="email" className="form-label">Correo Electrónico</label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        value={data.mail_direccion}
-                                        className="form-control"
-                                        onChange={(e) => setData('mail_direccion', e.target.value)}
-                                    />
-                                    {errors.mail_direccion && <div className="text-danger mt-1">{errors.mail_direccion}</div>}
-                                </div>
-                                <hr></hr>
-                                <div className="col-md-12">
-                                    <label htmlFor="observacion" className="form-label"><h4>Observación</h4></label>
-                                    <textarea
-                                        id="observacion"
-                                        name="observacion"
-                                        value={data.observacion}
-                                        className="form-control"
-                                        onChange={(e) => setData('observacion', e.target.value)}
-                                    />
-                                    {errors.observacion && <div className="text-danger mt-1">{errors.observacion}</div>}
-                                </div>
-
-                                {/* Botones */}
-                                <div className="col-12 d-flex justify-content-end mt-4 gap-2">
-                                    <button type="submit" className="btn btn-success">Guardar</button>
-                                    <button type="button" className="btn btn-secondary" onClick={() => reset()}>Limpiar</button>
-
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </main>
                 </div>
             </div >
 
@@ -615,7 +574,7 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
                             ? "Buscar Región"
                             : "Buscar Provincia"
                 }
-                className="modal"
+
                 style={{
                     content: {
                         backgroundColor: '#ffffff',
@@ -624,14 +583,17 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
                         padding: '20px',
                         maxWidth: '600px',
                         margin: '0 auto',
+                        width: '50%',
+                        overflow: 'auto',
+                        inset: 'unset',
                     }
                 }}
                 overlayClassName="modal-overlay"
             >
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">
+                <div className="modal-dialog modal-lg h-100">
+                    <div className="modal-content h-100">
+                        <div className="modal-header d-flex justify-content-between">
+                            <h5 className="modal-title mb-3">
                                 {isPaisModalOpen
                                     ? "Buscar País"
                                     : isRegionModalOpen
@@ -645,172 +607,179 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
                                 aria-label="Cerrar"
                             ></button>
                         </div>
-                        <div className="modal-body">
-                            <div className="input-group mb-3">
-                                <input
-                                    type="text"
-                                    value={
-                                        isPaisModalOpen
-                                            ? paisSearchQuery
-                                            : isRegionModalOpen
-                                                ? regionSearchQuery
-                                                : provinciaSearchQuery
-                                    }
-                                    onChange={(e) => {
-                                        if (isPaisModalOpen) {
-                                            setPaisSearchQuery(e.target.value);
-                                        } else if (isRegionModalOpen) {
-                                            setRegionSearchQuery(e.target.value);
-                                        } else {
-                                            setProvinciaSearchQuery(e.target.value);
-                                        }
-                                    }}
-                                    placeholder={
-                                        isPaisModalOpen
-                                            ? "Buscar por nombre de país"
-                                            : isRegionModalOpen
-                                                ? "Buscar por nombre de región"
-                                                : "Buscar por nombre de provincia"
-                                    }
-                                    className="form-control"
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                        if (isPaisModalOpen) {
-                                            fetchPaisSearchResults();
-                                        } else if (isRegionModalOpen) {
-                                            fetchRegionSearchResults();
-                                        } else {
-                                            fetchProvinciaSearchResults();
-                                        }
-                                    }}
-                                >
-                                    Buscar
-                                </button>
-                            </div>
-                            <table className="table table-hover" style={{ cursor: 'pointer' }}>
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {(isPaisModalOpen
-                                        ? paisSearchResults
-                                        : isRegionModalOpen
-                                            ? regionSearchResults
-                                            : provinciaSearchResults
-                                    ).length > 0 ? (
-                                        (isPaisModalOpen
+                        <div className="modal-body h-100 d-flex flex-column">
+                            <div className='mb-auto'>
+                                <div className="card">
+                                    <div className="card-body">
+                                        <div className='input-group'>
+                                            <input
+                                                type="text"
+                                                value={
+                                                    isPaisModalOpen
+                                                        ? paisSearchQuery
+                                                        : isRegionModalOpen
+                                                            ? regionSearchQuery
+                                                            : provinciaSearchQuery
+                                                }
+                                                onChange={(e) => {
+                                                    if (isPaisModalOpen) {
+                                                        setPaisSearchQuery(e.target.value);
+                                                    } else if (isRegionModalOpen) {
+                                                        setRegionSearchQuery(e.target.value);
+                                                    } else {
+                                                        setProvinciaSearchQuery(e.target.value);
+                                                    }
+                                                }}
+                                                placeholder={
+                                                    isPaisModalOpen
+                                                        ? "Buscar por nombre de país"
+                                                        : isRegionModalOpen
+                                                            ? "Buscar por nombre de región"
+                                                            : "Buscar por nombre de provincia"
+                                                }
+                                                className="form-control"
+                                            />
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                onClick={() => {
+                                                    if (isPaisModalOpen) {
+                                                        fetchPaisSearchResults();
+                                                    } else if (isRegionModalOpen) {
+                                                        fetchRegionSearchResults();
+                                                    } else {
+                                                        fetchProvinciaSearchResults();
+                                                    }
+                                                }}
+                                            >
+                                                Buscar
+                                            </button>
+                                        </div>
+                                        <table className="table table-hover" style={{ cursor: 'pointer' }}>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {(isPaisModalOpen
+                                                    ? paisSearchResults
+                                                    : isRegionModalOpen
+                                                        ? regionSearchResults
+                                                        : provinciaSearchResults
+                                                ).length > 0 ? (
+                                                    (isPaisModalOpen
+                                                        ? paisSearchResults
+                                                        : isRegionModalOpen
+                                                            ? regionSearchResults
+                                                            : provinciaSearchResults
+                                                    ).map((item) => (
+                                                        <tr key={item.id}>
+                                                            <td
+                                                                className='table-hover'
+                                                                onClick={() => {
+                                                                    if (isPaisModalOpen) {
+                                                                        handleSelectPais(item);
+                                                                    } else if (isRegionModalOpen) {
+                                                                        handleSelectRegion(item);
+                                                                    } else {
+                                                                        handleSelectProvincia(item);
+                                                                    }
+                                                                }}
+                                                            >
+                                                                {isPaisModalOpen
+                                                                    ? item.nombre
+                                                                    : isRegionModalOpen
+                                                                        ? item.descripcion
+                                                                        : item.descripcion}
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan="2" className="text-center">No se encontraron resultados</td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+
+                                        {(isPaisModalOpen
                                             ? paisSearchResults
                                             : isRegionModalOpen
                                                 ? regionSearchResults
                                                 : provinciaSearchResults
-                                        ).map((item) => (
-                                            <tr key={item.id}>
-                                                <td
-                                                    className='table-hover'
+                                        ).length > 0 ? (
+                                            <div className="d-flex justify-content-center gap-2">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary"
                                                     onClick={() => {
                                                         if (isPaisModalOpen) {
-                                                            handleSelectPais(item);
+                                                            fetchPaisSearchResults(paisCurrentPage - 1);
                                                         } else if (isRegionModalOpen) {
-                                                            handleSelectRegion(item);
+                                                            fetchRegionSearchResults(regionCurrentPage - 1);
                                                         } else {
-                                                            handleSelectProvincia(item);
+                                                            fetchProvinciaSearchResults(provinciaCurrentPage - 1);
                                                         }
                                                     }}
+                                                    disabled={
+                                                        isPaisModalOpen
+                                                            ? paisCurrentPage === 1
+                                                            : isRegionModalOpen
+                                                                ? regionCurrentPage === 1
+                                                                : provinciaCurrentPage === 1
+                                                    }
                                                 >
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </button>
+                                                <span>
                                                     {isPaisModalOpen
-                                                        ? item.nombre
+                                                        ? paisCurrentPage
                                                         : isRegionModalOpen
-                                                            ? item.descripcion
-                                                            : item.descripcion}
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="2" className="text-center">No se encontraron resultados</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-
-                            {(isPaisModalOpen
-                                ? paisSearchResults
-                                : isRegionModalOpen
-                                    ? regionSearchResults
-                                    : provinciaSearchResults
-                            ).length > 0 ? (
-                                <div className="d-flex justify-content-center gap-2">
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary"
-                                        onClick={() => {
-                                            if (isPaisModalOpen) {
-                                                fetchPaisSearchResults(paisCurrentPage - 1);
-                                            } else if (isRegionModalOpen) {
-                                                fetchRegionSearchResults(regionCurrentPage - 1);
-                                            } else {
-                                                fetchProvinciaSearchResults(provinciaCurrentPage - 1);
-                                            }
-                                        }}
-                                        disabled={
-                                            isPaisModalOpen
-                                                ? paisCurrentPage === 1
-                                                : isRegionModalOpen
-                                                    ? regionCurrentPage === 1
-                                                    : provinciaCurrentPage === 1
-                                        }
-                                    >
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </button>
-                                    <span>
-                                        {isPaisModalOpen
-                                            ? paisCurrentPage
-                                            : isRegionModalOpen
-                                                ? regionCurrentPage
-                                                : provinciaCurrentPage} de{" "}
-                                        {isPaisModalOpen
-                                            ? paisLastPage
-                                            : isRegionModalOpen
-                                                ? regionLastPage
-                                                : provinciaLastPage}
-                                    </span>
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary"
-                                        onClick={() => {
-                                            if (isPaisModalOpen) {
-                                                fetchPaisSearchResults(paisCurrentPage + 1);
-                                            } else if (isRegionModalOpen) {
-                                                fetchRegionSearchResults(regionCurrentPage + 1);
-                                            } else {
-                                                fetchProvinciaSearchResults(provinciaCurrentPage + 1);
-                                            }
-                                        }}
-                                        disabled={
-                                            isPaisModalOpen
-                                                ? paisCurrentPage === paisLastPage
-                                                : isRegionModalOpen
-                                                    ? regionCurrentPage === regionLastPage
-                                                    : provinciaCurrentPage === provinciaLastPage
-                                        }
-                                    >
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </button>
+                                                            ? regionCurrentPage
+                                                            : provinciaCurrentPage} de{" "}
+                                                    {isPaisModalOpen
+                                                        ? paisLastPage
+                                                        : isRegionModalOpen
+                                                            ? regionLastPage
+                                                            : provinciaLastPage}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary"
+                                                    onClick={() => {
+                                                        if (isPaisModalOpen) {
+                                                            fetchPaisSearchResults(paisCurrentPage + 1);
+                                                        } else if (isRegionModalOpen) {
+                                                            fetchRegionSearchResults(regionCurrentPage + 1);
+                                                        } else {
+                                                            fetchProvinciaSearchResults(provinciaCurrentPage + 1);
+                                                        }
+                                                    }}
+                                                    disabled={
+                                                        isPaisModalOpen
+                                                            ? paisCurrentPage === paisLastPage
+                                                            : isRegionModalOpen
+                                                                ? regionCurrentPage === regionLastPage
+                                                                : provinciaCurrentPage === provinciaLastPage
+                                                    }
+                                                >
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
                                 </div>
-                            ) : (
-                                ''
-                            )}
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </Modal>
         </DashboardLayout>
-
+</>
     );
 };
 

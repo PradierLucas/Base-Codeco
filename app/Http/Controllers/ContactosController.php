@@ -74,8 +74,8 @@ class ContactosController extends Controller
 
     public function index () {
         
-        $contactos=vista_contactos::orderby('id')->get();
-        return Inertia::render('/Contacto/Index',['contactos'=>$contactos,]);
+        $contactos=contactos::orderby('id')->get();
+        return Inertia::render('Contacto/Index',['contactos'=>$contactos,]);
     }
 
     public function edit (contactos $contacto) {

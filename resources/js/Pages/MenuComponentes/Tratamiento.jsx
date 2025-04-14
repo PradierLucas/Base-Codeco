@@ -501,7 +501,7 @@ const Create = ({ auth }) => {
                                         ? menuSearchResults
                                         : componenteSearchResults
                                     ).length > 0 ? (
-                                        <div className="d-flex justify-content-center gap-2">
+                                        <div className="d-flex justify-content-center gap-2 my-2">
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary"

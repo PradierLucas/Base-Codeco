@@ -45,11 +45,11 @@ class User extends Authenticatable
 
     public function perfiles()
     {
-        return $this->belongsToMany(Perfil::class, 'users_perfiles', 'id_user', 'id_perfil')->wherePivot('activo', true);
+        return $this->belongsToMany(Perfil::class, 'users_perfiles', 'id_user', 'id_perfil')->withPivot('sn_activo');
     }
 
     public function componentesExcepcion()
     {
-        return $this->belongsToMany(Componente::class, 'users_componentes_excepcion', 'id_user', 'id_componente');
+        return $this->belongsToMany(Componentes::class, 'users_componentes_excepcion', 'id_user', 'id_componente');
     }
 }
