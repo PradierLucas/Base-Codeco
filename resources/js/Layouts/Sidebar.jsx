@@ -8,23 +8,45 @@ import Authenticated from "./AuthenticatedLayout";
 export default function Sidebar({ children }) {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [openMenus, setOpenMenus] = useState({});
-    const [perfilesMenusComponentes, setPerfilesMenusComponentes] = useState([]);
 
-    // Función para obtener los datos del backend
-    const fetchPerfilesMenusComponentes = async () => {
-        try {
-            const response = await fetch('/user/perfil-menu-componentes');
-            const data = await response.json();
-            setPerfilesMenusComponentes(data);
-        } catch (error) {
-            console.error('Error fetching perfiles, menus, and componentes:', error);
-        }
-    };
+    const data = JSON.parse(localStorage.getItem('perfilesMenusComponentes'));
+    const [perfilesMenusComponentes, setPerfilesMenusComponentes] = useState(data);
 
-    // Llamar a la función al montar el componente
     useEffect(() => {
-        fetchPerfilesMenusComponentes();
-    }, []);
+        // Si no hay datos en el localStorage, hacer fetch
+        if (!perfilesMenusComponentes) {
+            const fetchPerfilesMenusComponentes = async () => {
+                try {
+                    const response = await fetch('/user/perfil-menu-componentes');
+                    const data = await response.json();
+                    setPerfilesMenusComponentes(data);
+                    localStorage.setItem('perfilesMenusComponentes', JSON.stringify(data));
+                } catch (error) {
+                    console.error('Error fetching perfiles, menus, and componentes:', error);
+                }
+            };
+
+            fetchPerfilesMenusComponentes();
+        }
+    }, [perfilesMenusComponentes]);
+
+
+
+    /*   // Función para obtener los datos del backend
+      const fetchPerfilesMenusComponentes = async () => {
+          try {
+              const response = await fetch('/user/perfil-menu-componentes');
+              const data = await response.json();
+              setPerfilesMenusComponentes(data);
+          } catch (error) {
+              console.error('Error fetching perfiles, menus, and componentes:', error);
+          }
+      };
+  
+      // Llamar a la función al montar el componente
+      useEffect(() => {
+          fetchPerfilesMenusComponentes();
+      }, []);  */
 
     // Función para alternar la visibilidad de los menús
     const toggleMenu = (menuId) => {
@@ -68,7 +90,8 @@ export default function Sidebar({ children }) {
                     {/* Menú lateral dinámico */}
                     <div className="container overflow-auto" style={{ maxHeight: "450px", minWidth: "250px", overflowY: "hidden" }}>
                         <ul className="nav flex-column">
-                            {perfilesMenusComponentes.map((perfil, index) => (
+
+                            {perfilesMenusComponentes?.map((perfil, index) => (
                                 <li key={`perfil-${perfil.id_perfil}-${index}`} className="nav-item">
                                     <h5>{perfil.perfil}</h5>
                                     {perfil.menus.map((menu, index) => (

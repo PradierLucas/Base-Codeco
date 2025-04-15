@@ -18,7 +18,7 @@ export default function Authenticated({ user }) {
                     onClick={toggleMenu}
                     aria-expanded={openMenus ? "true" : "false"}
                 >
-                    {user.name}
+                    {user?.name}
                 </button>
                 <div className={`collapse ${openMenus ? "show" : ""}`}>
                     <ul className="list-unstyled ps-3">
@@ -26,9 +26,18 @@ export default function Authenticated({ user }) {
                             <Link className="dropdown-item" href={route('profile.edit')}>
                                 <small className="">Profile</small>
                             </Link>
-                            <Link className="dropdown-item" href={route('logout')} method="post" as="button">
+                            <Link
+                                className="dropdown-item"
+                                href={route('logout')}
+                                method="post"
+                                as="button"
+                                onClick={() => {
+                                    localStorage.clear();
+                                }}
+                            >
                                 <small className="">Cerrar Sesión</small>
                             </Link>
+
                         </li>
                     </ul>
                 </div>
