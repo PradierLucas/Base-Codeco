@@ -49,5 +49,46 @@ class ComponenteSeed extends Seeder
             'sn_activo'      => true,
             'url'         => 'test/facturaB'
         ]);
+
+        Componentes::firstOrCreate([
+            'nombre'=> 'Menus',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/menu/vista',
+        ]);
+        Componentes::firstOrCreate([
+            'nombre'=> 'Componentes',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/componente/vista',
+        ]);
+
+        Componentes::firstOrCreate([
+            'nombre'=> 'Menus Configuración',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/configuracion/menu-componentes',
+        ]);
+
+        Componentes::firstOrCreate([
+            'nombre'=> 'Perfil Configuración',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/configuracion/perfil-menu',
+        ]);
+
+        Componentes::firstOrCreate([
+            'nombre'=> 'Perfil - Usuario',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/configuracion/perfil-user',
+        ]);
+
+        Componentes::firstOrCreate([
+            'nombre'=> 'Usuario - Perfiles',
+            'descripcion'=> '...',
+            'sn_activo'=> true,
+            'url'=> '/configuracion/user-perfiles',
+        ]);
     }
 }

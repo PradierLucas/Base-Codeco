@@ -1,89 +1,32 @@
-// Sidebar.jsx
-
+import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
-import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import Authenticated from "./AuthenticatedLayout";
 
-export default function DashboardLayout({ children }) {
+export default function Sidebar({ children }) {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [openMenus, setOpenMenus] = useState({});
-    const user = JSON.parse(localStorage.getItem("user"));
+    const [perfilesMenusComponentes, setPerfilesMenusComponentes] = useState([]);
 
-
-
-
-    const datos = {
-        usuarios: [
-            {
-                id: 1,
-                nombre: "Instalador",
-                perfiles: [
-                    {
-                        nombre: "Configurar",
-                        menus: [
-                            {
-                                id: 90,
-                                nombre: "Configurar",
-                                componente: [
-                                    { nombre: "Componentes", url: "/componente/vista"},
-                                    { nombre: "Menú", url: "/menu/vista"},
-                                    { nombre: "Menú Configurar", url: "/configuracion/menu-componentes" },
-                                    { nombre: "Perfiles", url: "/perfil/"},
-                                    { nombre: "Perfil - Menú", url: "/configuracion/perfil-menu" },
-                                    { nombre: "Usuarios", url: "" },
-                                    { nombre: "Perfil - Usuario", url: "/configuracion/perfil-user" },
-                                    { nombre: "Usuario - Perfiles", url: "" },
-                                    { nombre: "Usuario - Excepciones", url: "" },
-                                ],
-                            },{
-                            id: 12,
-                            nombre: "Administrar Sistema",
-                            componente:[
-                                { nombre: "Contactos", url: ""},
-                                { nombre: "Categorias", url: ""},
-                                { nombre: "Contacto - Categorias", url: ""},
-                            ],},
-                            {
-                                id: 13,
-                                nombre: "Gestionar CRM",
-                                componente:[
-                                    { nombre: "Contactos", url: ""},
-                                    { nombre: "Contacto - Categorias", url: ""},
-                                ],},
-                            
-                        ],
-                    },
-                ],
-            },
-            {
-                id: 3,
-                nombre: "Administrador",
-                perfiles: [
-                    {
-                        nombre: "Administrar Sistema",
-                        menus: [
-                            {
-                                id: 10,
-                                nombre: "Contactos",
-                                componente: [{ nombre: "Contactos", url: "/contactos" }],
-                            },
-                            {
-                                id: 20,
-                                nombre: "Categorias",
-                                componente: [{ nombre: "Categorias", url: "/categorias" }],
-                            },
-                        ],
-                    },
-                ],
-            },
-        ],
+    // Función para obtener los datos del backend
+    const fetchPerfilesMenusComponentes = async () => {
+        try {
+            const response = await fetch('/user/perfil-menu-componentes');
+            const data = await response.json();
+            setPerfilesMenusComponentes(data);
+        } catch (error) {
+            console.error('Error fetching perfiles, menus, and componentes:', error);
+        }
     };
 
-    const filteredUser = datos.usuarios.find((usuario) => usuario.id === Number(user?.id));
+    // Llamar a la función al montar el componente
+    useEffect(() => {
+        fetchPerfilesMenusComponentes();
+    }, []);
 
+    // Función para alternar la visibilidad de los menús
     const toggleMenu = (menuId) => {
         setOpenMenus((prevState) => ({
             ...prevState,
@@ -101,17 +44,17 @@ export default function DashboardLayout({ children }) {
         closed: { marginLeft: '0px', transition: { duration: 0.3 } },
     };
 
-
     return (
         <div className="d-flex">
+            {/* Sidebar */}
             <motion.div
                 className="bg-success text-white p-3 d-flex flex-column justify-content-between"
                 variants={sidebarVariants}
                 animate={sidebarVisible ? 'open' : 'closed'}
-
                 style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
             >
                 <div>
+                    {/* Botón para alternar la visibilidad del sidebar */}
                     <button
                         className="btn btn-light position-absolute top-0 end-0 m-2"
                         style={{ border: "none", background: "none", color: "white", fontSize: "1.5rem" }}
@@ -122,38 +65,40 @@ export default function DashboardLayout({ children }) {
                     </button>
                     <h4 className="mb-4">CODECO</h4>
 
-                    {/* Menú lateral */}
+                    {/* Menú lateral dinámico */}
                     <div className="container overflow-auto" style={{ maxHeight: "450px", minWidth: "250px", overflowY: "hidden" }}>
                         <ul className="nav flex-column">
-                            {filteredUser &&
-                                filteredUser.perfiles.flatMap((perfil) =>
-                                    perfil.menus.map((menu) => (
-                                        <li key={menu.id} className="nav-item dropdown">
+                            {perfilesMenusComponentes.map((perfil, index) => (
+                                <li key={`perfil-${perfil.id_perfil}-${index}`} className="nav-item">
+                                    <h5>{perfil.perfil}</h5>
+                                    {perfil.menus.map((menu, index) => (
+                                        <div key={`${perfil.id_perfil}-${menu.menu}-${index}`}>
                                             {/* Botón para desplegar el menú */}
                                             <button
                                                 className="btn btn-link nav-link dropdown-toggle text-white"
                                                 type="button"
-                                                onClick={() => toggleMenu(menu.id)}
-                                                aria-expanded={openMenus[menu.id] ? "true" : "false"}
+                                                onClick={() => toggleMenu(menu.menu)}
+                                                aria-expanded={openMenus[menu.menu] ? "true" : "false"}
                                             >
-                                                {menu.nombre}
+                                                {menu.menu}
                                             </button>
 
                                             {/* Lista de componentes (submenu) */}
-                                            <div className={`collapse ${openMenus[menu.id] ? "show" : ""}`}>
+                                            <div className={`collapse ${openMenus[menu.menu] ? "show" : ""}`}>
                                                 <ul className="list-unstyled ps-3">
-                                                    {menu.componente.map((componente, index) => (
-                                                        <li key={index}>
-                                                            <Link className="dropdown-item" href={componente.url}>
-                                                                <small className="">{componente.nombre}</small>
+                                                    {Object.entries(menu.componentes).map(([nombre, url]) => (
+                                                        <li key={`${menu.menu}-${nombre}`}>
+                                                            <Link className="dropdown-item" href={url}>
+                                                                <small>{nombre}</small>
                                                             </Link>
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </div>
-                                        </li>
-                                    ))
-                                )}
+                                        </div>
+                                    ))}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -162,7 +107,7 @@ export default function DashboardLayout({ children }) {
                 <footer className="bg-success text-white text-center py-3">
                     <hr />
                     <div className="container">
-                        <Authenticated user={user} />
+                        <Authenticated user={JSON.parse(localStorage.getItem("user"))} />
                         <hr />
                         <p style={{ fontSize: "12px" }}>&copy; CODECO 2025</p>
                     </div>
@@ -190,7 +135,3 @@ export default function DashboardLayout({ children }) {
         </div>
     );
 }
-
-
-
-

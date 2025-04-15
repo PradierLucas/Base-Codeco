@@ -23,6 +23,13 @@ class UserPerfilSeed extends Seeder
                 'sn_activo'     => true
             ]
         );
+        UserPerfil::create(
+            [
+                'id_user'    => User::find(2)->id,
+                'id_perfil'  => Perfil::find(3)->id,
+                'sn_activo'     => true
+            ]
+        );
         // Lucas perfil Usuario CRM
         UserPerfil::create(
             [

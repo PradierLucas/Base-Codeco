@@ -24,5 +24,11 @@ class MenuSeed extends Seeder
             'informacion' => '...',
             'sn_activo'      => true
         ]);
+        Menu::firstOrCreate([
+            'nombre'      => 'Configuración',
+            'abreviatura' => 'CONF',
+            'informacion' => '...',
+            'sn_activo'      => true
+        ]);
     }
 }

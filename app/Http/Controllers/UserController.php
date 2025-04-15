@@ -47,7 +47,8 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function getPerfilesMenusComponentesByUser(): JsonResponse {
+    public function getPerfilesMenusComponentesByUser(): JsonResponse
+    {
         $usuarioSesion = Auth::user();
 
         $usuario = User::with([
@@ -61,26 +62,25 @@ class UserController extends Controller
                 $query->where('componentes.sn_activo', 1) // Solo componentes activos
                     ->whereDoesntHave('usersExcepcion', function ($subQuery) use ($usuarioSesion) {
                         $subQuery->where('users_componentes_excepcion.id_user', $usuarioSesion->id)
-                                 ->where(function ($condition) {
-                                     $condition->whereNull('users_componentes_excepcion.sn_habilitado')
-                                               ->orWhere('users_componentes_excepcion.sn_habilitado', '!=', 1);
-                                 });
+                            ->where(function ($condition) {
+                                $condition->whereNull('users_componentes_excepcion.sn_habilitado')
+                                    ->orWhere('users_componentes_excepcion.sn_habilitado', '!=', 1);
+                            });
                     });
             }
         ])->findOrFail($usuarioSesion->id);
 
         // Filtrar perfiles que tengan al menos un menú activo
         $response = $usuario->perfiles->filter(function ($perfil) {
-            return $perfil->menus->contains('sn_activo', 1); // Verificar si el perfil tiene al menos un menú activo
+            return $perfil->menus->contains('sn_activo', 1);
         })->map(function ($perfil) {
             return [
-                'perfil' => $perfil->nombre,
                 'menus' => $perfil->menus->filter(function ($menu) {
-                    return $menu->sn_activo == 1; // Solo menús activos
+                    return $menu->sn_activo == 1;
                 })->map(function ($menu) {
                     return [
                         'menu' => $menu->nombre,
-                        'componentes' => $menu->componentes->pluck('nombre')->toArray(),
+                        'componentes' => $menu->componentes->pluck('url', 'nombre')->toArray(),
                     ];
                 })->toArray(),
             ];

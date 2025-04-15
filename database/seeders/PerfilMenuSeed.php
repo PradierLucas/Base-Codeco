@@ -27,5 +27,12 @@ class PerfilMenuSeed extends Seeder
             'id_menu'   => Menu::find(2)->id,
             'sn_activo'    => true
         ]);
+        PerfilMenu::firstOrCreate([
+            'id_perfil' => Perfil::find(3)->id,
+            'id_menu'   => Menu::find(3)->id,
+            'sn_activo'    => true
+        ]);
     }
+
+
 }

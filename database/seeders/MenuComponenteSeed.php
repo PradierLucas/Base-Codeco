@@ -57,5 +57,18 @@ class MenuComponenteSeed extends Seeder
             'orden'         => 1,
             'sn_activo'        => true
         ]);
-    }
+
+        for ($i = 7; $i <= 12; $i++) {
+            MenuComponente::firstOrCreate(
+                [
+                    'id_menu'       => Menu::find(3)->id,
+                    'id_componente' => Componentes::find($i)->id,
+                ],
+                [
+                    'orden'     => 1,
+                    'sn_activo' => true,
+                ]
+            );
+        }
+}
 }

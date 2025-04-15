@@ -31,5 +31,11 @@ class PerfilSeed extends Seeder
             'abreviatura' => 'Administrador',
             'sn_activo'      => true
         ]);
+        Perfil::create([
+            'nombre'      => 'Configuración',
+            'informacion' => '',
+            'abreviatura' => 'Configuracion',
+            'sn_activo'      => true
+        ]);
     }
 }
