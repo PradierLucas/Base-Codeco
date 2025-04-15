@@ -6,10 +6,19 @@ import { Head, Link } from '@inertiajs/react';
 export default function Dashboard({ auth }) {
     const [perfilesMenusComponentes, setPerfilesMenusComponentes] = useState(null);
 
+
+    const userData = {
+        id: auth.user.id,
+        name: auth.user.name
+       
+      };
+      
+  
+      
     // Guardar usuario en localStorage
     useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(auth.user));
-    }, [auth.user]);
+        localStorage.setItem('user', JSON.stringify(userData));
+    }, [userData]);
 
     // Función para obtener los datos del backend
     const fetchPerfilesMenusComponentes = async () => {
