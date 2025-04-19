@@ -35,7 +35,7 @@ export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
                 setSnModal(data.componente.sn_modal);
                 setUrl(data.componente.url || url);
                 setActivo(data.componente.componente_activo);
-                setNombreBotonFront(data.componente.nombreBoton);
+                setNombreBotonFront(data.componente.nombre_boton || nombreBoton);
             } catch (error) {
                 console.error('Error al realizar el fetch:', error);
             }
@@ -49,14 +49,14 @@ export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
 
         return (
             <button className='btn btn-primary' onClick={onclick}>
-                {nombre}
+                {nombreBotonFront}
             </button>
         )
     } else if (activo == 1 && snModal == 0) {
         return (
             <a href={urlExistente}>
                 <button className="btn btn-primary">
-                    {nombre}
+                    {nombreBotonFront}
                 </button>
             </a>
         );
