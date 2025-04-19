@@ -15,78 +15,78 @@ class ComponenteSeed extends Seeder
     {
         Componentes::create([
             'nombre'      => 'Contactos',
-            'descripcion' => '...',
+            'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/contactos'
         ]);
         Componentes::create([
             'nombre'      => 'Radicaciones',
-            'descripcion' => '...',
+            'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/radicaciones'
         ]);
         Componentes::create([
             'nombre'      => 'Categorias',
-            'descripcion' => '...',
+            'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/categorias'
         ]);
         Componentes::create([
             'nombre'      => 'Agregar',
-            'descripcion' => 'LLama a agregar contacto',
+            'componente_item_proceso' => 'LLama a agregar contacto',
             'sn_activo'      => true,
             'url'         => 'test/contactos/agregar'
         ]);
         Componentes::create([
             'nombre'      => 'Factura A',
-            'descripcion' => '...',
+            'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/facturaA'
         ]);
         Componentes::create([
             'nombre'      => 'Factura B',
-            'descripcion' => '...',
+            'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/facturaB'
         ]);
 
         Componentes::firstOrCreate([
             'nombre'=> 'Menus',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/menu/vista',
         ]);
         Componentes::firstOrCreate([
             'nombre'=> 'Componentes',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/componente/vista',
         ]);
 
         Componentes::firstOrCreate([
             'nombre'=> 'Menus Configuración',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/configuracion/menu-componentes',
         ]);
 
         Componentes::firstOrCreate([
             'nombre'=> 'Perfil Configuración',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/configuracion/perfil-menu',
         ]);
 
         Componentes::firstOrCreate([
             'nombre'=> 'Perfil - Usuario',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/configuracion/perfil-user',
         ]);
 
         Componentes::firstOrCreate([
             'nombre'=> 'Usuario - Perfiles',
-            'descripcion'=> '...',
+            'componente_item_proceso'=> '...',
             'sn_activo'=> true,
             'url'=> '/configuracion/user-perfiles',
         ]);

@@ -15,37 +15,26 @@ class UserController extends Controller
     * Retorna: los perfiles del usuario junto con los menus del perfil y los componentes exceptuados para el usuario
     *
     */
-    public function getPerfilesMenusComponentesExceptuadosByUser(): JsonResponse
-    {
+
+    
+    public function getExcepcionesPorUser(): JsonResponse {
         $usuarioSesion = Auth::user();
 
-        $usuairo = User::with([
-            'perfiles.menus.componentes' => function ($query) use ($usuarioSesion) {
-                $query->with(['usersExcepcion' => function ($subQuery) use ($usuarioSesion) {
-                    $subQuery->where('id_user', $usuarioSesion->id);
-                }]);
-            }
+        $usuario = User::with([
+            'componentesExcepcion' => function ($query) {
+                $query->where('sn_habilitado', 0);
+            },
         ])->findOrFail($usuarioSesion->id);
 
-        $response = $usuairo->perfiles->map(function ($perfil) {
+        $response = $usuario->componentesExcepcion->map(function ($excepcion) {
             return [
-                'perfil' => $perfil->nombre,
-                'menus' => $perfil->menus->map(function ($menu) {
-                    $componentesExceptuados = $menu->componentes->filter(function ($componente) {
-                        return $componente->usersExcepcion->isNotEmpty();
-                    });
-                    return [
-                        'menu' => $menu->nombre,
-                        'excepcion_componentes' => $componentesExceptuados->pluck('nombre')->toArray(),
-                    ];
-                })->toArray(),
+                'componente' => $excepcion->nombre,
             ];
-        });
-
-        dd(response()->json($response));
+        })->toArray();
 
         return response()->json($response);
     }
+
 
     public function getPerfilesMenusComponentesByUser(): JsonResponse
     {
@@ -80,6 +69,7 @@ class UserController extends Controller
                 })->map(function ($menu) {
                     return [
                         'menu' => $menu->nombre,
+                        'menu-info' => $menu->informacion,
                         'componentes' => $menu->componentes->pluck('url', 'nombre')->toArray(),
                     ];
                 })->toArray(),

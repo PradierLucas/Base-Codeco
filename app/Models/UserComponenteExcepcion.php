@@ -10,7 +10,7 @@ class UserComponenteExcepcion extends Model
 
     public function componente()
     {
-        return $this->belongsTo(Componente::class, 'id_componente');
+        return $this->belongsTo(Componentes::class, 'id_componente');
     }
 
     public function usuario()

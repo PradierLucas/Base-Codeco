@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('componentes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',180)->unique();
-            $table->string('descripcion',100)->nullable()->comment('Información del componente por ejemplo "Nuevo Contacto - Rapido" o "Pagina en blanco", "401: No autorizada"');
+            $table->string('componente_item_proceso',100)->nullable()->comment('Información del componente por ejemplo "Nuevo Contacto - Rapido" o "Pagina en blanco", "401: No autorizada"');
             $table->string('informacion',180)->nullable();
             $table->text('url');
             $table->boolean('sn_modal')->default(false);

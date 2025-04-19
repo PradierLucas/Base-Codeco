@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DashboardLayout from '@/Layouts/Sidebar';
 import { Head, Link } from '@inertiajs/react';
+import { data } from 'autoprefixer';
 
 export default function Dashboard({ auth }) {
     const [perfilesMenusComponentes, setPerfilesMenusComponentes] = useState(null);
-
+    const[excepciones, setExcepciones]=useState(null);
 
     const userData = {
         id: auth.user.id,
@@ -13,8 +14,21 @@ export default function Dashboard({ auth }) {
        
       };
       
-  
+      const fetchExcepcionesPorUser = async () => {
+        try {
+            const response = await fetch('/excepciones');
+            const data = await response.json();
+            setExcepciones(data);
+            console.log(data)
+            localStorage.setItem('excepciones', JSON.stringify(data));
+        } catch (error) {
+            console.error('Error fetching perfiles, menus, and componentes:', error);
+        }
+        
+    };
       
+
+
     // Guardar usuario en localStorage
     useEffect(() => {
         localStorage.setItem('user', JSON.stringify(userData));
@@ -35,6 +49,7 @@ export default function Dashboard({ auth }) {
     // Llamar a la función al montar el componente
     useEffect(() => {
         fetchPerfilesMenusComponentes();
+        fetchExcepcionesPorUser();
     }, []);
 
     return (
