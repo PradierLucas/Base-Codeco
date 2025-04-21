@@ -15,6 +15,25 @@ class UserController extends Controller
     * Retorna: los perfiles del usuario junto con los menus del perfil y los componentes exceptuados para el usuario
     *
     */
+    public function vista(){
+        $usuarios = User::all();
+        return Inertia::render('Usuarios/Vista', compact('usuarios'));
+    }
+
+    public function update(Request $request, User $usuario){
+        $data = $request->all();
+        $usuario->update($data);
+        return to_route('usuario.vista');
+    }
+
+    public function cambiarEstado(User $usuario){
+        $usuario->activo = !$usuario->activo;
+        $usuario->save();
+        return to_route('usuario.vista');
+    }
+
+
+
 
     
     public function getExcepcionesPorUser(): JsonResponse {

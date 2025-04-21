@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
 
+    const excepciones = JSON.parse(localStorage.getItem('excepciones'));
+
     const [componente, setComponente]= useState({
         snModal: 0,
         urlExistente: '',
@@ -11,6 +13,17 @@ export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
         nombreBotonFront: ''
     }
     );
+
+
+    {!excepciones.some((excepcion) => excepcion.componente === 'Agregar') && (
+        <button
+            type="button"
+            className="btn btn-primary"
+            onClick={openModal}
+        >
+            Agregar Menú
+        </button>
+    )}
 
     useEffect(() => {
         const fetchData = async () => {
