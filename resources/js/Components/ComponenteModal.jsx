@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 
 export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
 
+    const [componente, setComponente]= useState({
+        snModal: 0,
+        urlExistente: '',
+        activo: 0,
+        nombreBotonFront: ''
+    }
+    );
 
-
-    const [snModal, setSnModal] = useState(null);
-    const [urlExistente, setUrl] = useState('');
-    const [activo, setActivo] = useState(null);
-    const [nombreBotonFront, setNombreBotonFront] = useState("")
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,11 +33,14 @@ export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
                 }
 
                 const data = await response.json();
-                console.log('Datos recibidos:', data);
-                setSnModal(data.componente.sn_modal);
-                setUrl(data.componente.url || url);
-                setActivo(data.componente.componente_activo);
-                setNombreBotonFront(data.componente.nombre_boton || nombreBoton);
+
+                setComponente({
+                    snModal: data.componente.sn_modal,
+                    urlExistente: data.componente.url || url,
+                    activo: data.componente.componente_activo,
+                    nombreBotonFront: data.componente.nombre_boton || nombreBoton
+                })
+                
             } catch (error) {
                 console.error('Error al realizar el fetch:', error);
             }
@@ -45,18 +50,18 @@ export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
     }, [nombre, url, nombreBoton]);
 
     // Renderizado condicional basado en los datos obtenidos
-    if (snModal === 1 && activo === 1) {
+    if (componente.snModal === 1 && componente.activo === 1) {
 
         return (
             <button className='btn btn-primary' onClick={onclick}>
-                {nombreBotonFront}
+                {componente.nombreBotonFront}
             </button>
         )
-    } else if (activo == 1 && snModal == 0) {
+    } else if (componente.activo == 1 && componente.snModal == 0) {
         return (
-            <a href={urlExistente}>
+            <a href={componente.urlExistente}>
                 <button className="btn btn-primary">
-                    {nombreBotonFront}
+                    {componente.nombreBotonFront}
                 </button>
             </a>
         );
