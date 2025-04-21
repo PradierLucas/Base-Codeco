@@ -69,6 +69,7 @@ const Vista = ({ auth, componentes }) => {
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">URL</th>
+                                <th scope="col">Modal</th>
                                 <th scope="col">Activo</th>
                                 <th scope="col">Opciones</th>
                             </tr>
@@ -83,10 +84,13 @@ const Vista = ({ auth, componentes }) => {
                                         {componente.nombre}
                                     </td>
                                     <td className="px-6 py-4">
-                                        {componente.descripcion}
+                                        {componente.componente_item_proceso}
                                     </td>
                                     <td className="px-6 py-4">
                                         {componente.url}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {componente.sn_modal === 1 ? 'Si' : 'No'}
                                     </td>
                                     <td className="px-6 py-4">
                                         {componente.sn_activo === 1 ? 'Si' : 'No'}
@@ -233,15 +237,19 @@ const Vista = ({ auth, componentes }) => {
                                             <>
                                                 <div className="row">
                                                     <p className="col-6">Nombre: <span className="text-muted">{selectedItem.nombre}</span></p>
-                                                    <p className="col-6">Descripción: <span className="text-muted">{selectedItem.descripcion}</span></p>
+                                                    <p className="col-6">Descripción: <span className="text-muted">{selectedItem.componente_item_proceso}</span></p>
                                                     <p className="col-6">Información: <span className="text-muted">{selectedItem.informacion}</span></p>
+
 
                                                 </div>
                                                 <hr />
                                                 <p className="col-6">URL: <span className="text-muted">{selectedItem.url}</span></p>
 
                                                 <hr />
-                                                <p>Activo: <span className="text-muted">{selectedItem.sn_activo === 1 ? 'Si' : 'No'}</span></p>
+                                                <div className="row">
+                                                <p className="col-6">Modal: <span className="text-muted">{selectedItem.sn_modal === 1 ? 'Si' : 'No'}</span></p>
+                                                <p className="col-6">Activo: <span className="text-muted">{selectedItem.sn_activo === 1 ? 'Si' : 'No'}</span></p>
+                                                </div>
                                             </>
                                         )}
                                     </div>
