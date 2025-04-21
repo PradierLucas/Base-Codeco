@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Componentes::class, 'users_componentes_excepcion', 'id_user', 'id_componente');
     }
+
+    public function contacto(){
+        return $this->hasOne(Contactos::class, 'id_user', 'id');
+    }
 }

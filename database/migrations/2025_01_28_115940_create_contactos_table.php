@@ -65,7 +65,9 @@ return new class extends Migration
             $table->string('telefono_tipo',45)->default(null)->nullable();
             $table->string('telefono_numero',45)->default(null)->nullable();
             $table->boolean('telefono_sn_movil')->default(0)->nullable();
-            $table->mediumText('observacion');
+            $table->mediumText('observacion')->nullable();
+            $table->mediumText('nota')->nullable();
+
             $table->unsignedBigInteger('id_provincia')->default(1);
             $table->index('id_provincia','FK_id_provincia_contactos_idx');
             $table->foreign('id_provincia','FK_id_provincia_contactos')
@@ -103,8 +105,8 @@ return new class extends Migration
             ->references('id')->on('contactoestados')
             ->onDelete('cascade');
             $table->boolean('sn_activo')->default(1);
-            $table->unsignedBigInteger('id_user_created_at')->default(1);
-            $table->unsignedBigInteger('id_user_updated_at')->default(1);
+            $table->unsignedBigInteger('id_user_created_at')->nullable();
+            $table->unsignedBigInteger('id_user_updated_at')->nullable();
             $table->index('id_user_created_at','IDX_id_user_created_at_contactos');
             $table->foreign('id_user_created_at','FK_id_user_created_at')
             ->references('id')->on('users')->onDelete('cascade')

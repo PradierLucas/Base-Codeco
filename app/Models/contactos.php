@@ -39,6 +39,7 @@ class Contactos extends Model
     ];
 
     // Define las relaciones aquí
+
     public function condicionTributaria()
     {
         return $this->belongsTo(condiciontributarias::class, 'id_condiciontributaria');

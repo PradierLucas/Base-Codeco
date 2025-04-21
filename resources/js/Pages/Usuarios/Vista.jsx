@@ -79,7 +79,7 @@ const Vista = ({ auth, usuarios }) => {
                                         {usuario.email}
                                     </td>
                                     <td className="px-6 py-4">
-                                        {usuario.activo === 1 ? 'Si' : 'No'}
+                                        {usuario.sn_activo === 1 ? 'Si' : 'No'}
                                     </td>
                                     <td>
                                     <div className="dropdown">
@@ -107,7 +107,7 @@ const Vista = ({ auth, usuarios }) => {
                                                     Ver
                                                 </a>
                                                 <a className="dropdown-item" href={route('usuario.cambiarEstado', [usuario])}>
-                                                    {usuario.activo === 1 ? 'Desactivar' : 'Activar'}
+                                                    {usuario.sn_activo === 1 ? 'Desactivar' : 'Activar'}
                                                 </a>
 
                                             </div>
@@ -156,15 +156,15 @@ const Vista = ({ auth, usuarios }) => {
                         <div className="modal-body h-100 d-flex flex-column">
                             <div className='mb-auto'>
                                 <div className="card">
-                                    <div className="card-body">
+                                    <div className="card-body p-4">
                                         {selectedItem && (
                                             <>
-                                                <div className="row">
-                                                    <p className="col-6">Nombre: <span className="text-muted">{selectedItem.name}</span></p>
-                                                    <p className="col-6">Email: <span className="text-muted">{selectedItem.email}</span></p>
-                                                </div>
+
+                                                    <p >Nombre: <span className="text-muted">{selectedItem.name}</span></p>
+                                                    <p >Email: <span className="text-muted">{selectedItem.email}</span></p>
+
                                                 <hr />
-                                                <p>Activo: <span className="text-muted">{selectedItem.activo === 1 ? 'Si' : 'No'}</span></p>
+                                                <p>Activo: <span className="text-muted">{selectedItem.sn_activo === 1 ? 'Si' : 'No'}</span></p>
                                             </>
                                         )}
                                     </div>

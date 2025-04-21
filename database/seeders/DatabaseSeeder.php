@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        
         $this->call(GeopaisSeeder::class);
         $this->call(GeolugaresSeeder::class);
         $this->call(GeoprovinciasregionesSeeder::class);
@@ -28,7 +29,9 @@ class DatabaseSeeder extends Seeder
         $this->call(FisicojuridicosSeeder::class);
         $this->call(GeoprovinciasregionesSeeder::class);
         $this->call(IdentidadesSeeder::class);
+        $this->call(ContactosSeeder::class);
         $this->call(UserSeeder::class);
+   
 
         //Seeders para configurar componentes-menu por usuario, sumar en orden. En el caso que se quiera crear otro usuario asegurarnos de tenerlo arriba o sumarlo en el seed
         //NO PURAMENTE DESDE DB porque se rompen las relaciones

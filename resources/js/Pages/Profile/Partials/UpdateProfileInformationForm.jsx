@@ -22,44 +22,32 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+                <h2 className="text-lg font-medium text-gray-900">Información del Perfil</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Actualiza la Información de tu perfil y tu dirección Email.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
-
+                <div className='m-3'> 
+                    <label htmlFor="name">Nombre de Usuario</label>
+                    <div className='row'>
+                        <div className='col-3'>
+                    <input type="text" className='form-control' value={data.name}/>
+                    </div>
+                    </div>
                     <InputError className="mt-2" message={errors.name} />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
+                <div className='m-3'>
+                    <label htmlFor="email">Email</label>
+                    <div className='row'>
+                        <div className='col-3'>
+                    <input type="text" className='form-control' value={data.email}/>
+                    </div>
+                    </div>
+                    <InputError className="mt-2" message={errors.name} />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

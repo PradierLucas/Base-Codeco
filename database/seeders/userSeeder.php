@@ -18,19 +18,19 @@ class userSeeder extends Seeder
             'email'       =>'codeco@admin.com',
             'password'    =>'codeco',
             'super_admin' => true,
-            'activo'      => true,
+            'sn_activo'      => true,
         ]);
         User::create([
             'name'    =>'Thyago',
             'email'   =>'thyagotest@codeco.com',
             'password'=>'123456',
-            'activo'  => true,
+            'sn_activo'  => true,
         ]);
         User::create([
             'name'    =>'Lucas',
             'email'   =>'lucastest@codeco.com',
             'password'=>'654321',
-            'activo'  => true,
+            'sn_activo'  => true,
         ]);
     }
 }

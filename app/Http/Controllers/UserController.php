@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     public function cambiarEstado(User $usuario){
-        $usuario->activo = !$usuario->activo;
+        $usuario->sn_activo = !$usuario->sn_activo;
         $usuario->save();
         return to_route('usuario.vista');
     }
@@ -78,7 +78,7 @@ class UserController extends Controller
             }
         ])->findOrFail($usuarioSesion->id);
 
-        // Filtrar perfiles que tengan al menos un menú activo
+        // Filtrar perfiles que tengan al menos un menú sn_activo
         $response = $usuario->perfiles->filter(function ($perfil) {
             return $perfil->menus->contains('sn_activo', 1);
         })->map(function ($perfil) {
