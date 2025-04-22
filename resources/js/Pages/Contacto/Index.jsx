@@ -53,7 +53,7 @@ const Index = ({ contactos }) => {
 
     return (
         <>
-            <DashboardLayout>
+          
             <h2 >Contactos</h2>
             <div className="container mt-4">
                 <div className="row mb-3">
@@ -185,7 +185,7 @@ const Index = ({ contactos }) => {
                 </div>
 
             </Modal>
-            </DashboardLayout>
+          
         </>
     );
 }

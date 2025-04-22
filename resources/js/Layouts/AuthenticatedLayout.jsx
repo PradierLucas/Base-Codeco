@@ -32,6 +32,7 @@ export default function Authenticated({ user }) {
                                 method="post"
                                 as="button"
                                 onClick={() => {
+                                    sessionStorage.clear();
                                     localStorage.clear();
                                 }}
                             >
