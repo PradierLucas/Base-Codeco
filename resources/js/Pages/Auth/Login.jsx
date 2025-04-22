@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -28,13 +28,13 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-success">{status}</div>}
-
+            <div className='card'>
+                <div className='card-body'>
             <form onSubmit={submit}>
                 <div className="mb-3">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <label htmlFor="email" className='form-label'>Email</label>
 
                     <TextInput
                         id="email"
@@ -67,32 +67,32 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="form-check mb-3">
-                    <Checkbox
+                    <input
+                        type='checkbox'
                         name="remember"
                         checked={data.remember}
                         className="form-check-input"
                         onChange={(e) => setData('remember', e.target.checked)}
                     />
-                    <label className="form-check-label ms-2 text-sm text-gray-600">
-                        Remember me
+                    <label className="form-check-label">
+                        Recordarme
                     </label>
                 </div>
 
-                <div className="d-flex justify-content-end">
-                    {canResetPassword && (
-                        <Link
+                <div className="d-flex justify-content-between">
+                        <a
                             href={route('password.request')}
-                            className="text-decoration-underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Forgot your password?
-                        </Link>
-                    )}
+                            Olvide mi contraseña
+                        </a>
 
                     <PrimaryButton className="btn btn-primary ms-4" disabled={processing}>
-                        Log in
+                        Ingresar
                     </PrimaryButton>
                 </div>
             </form>
+            </div>
+            </div>
         </GuestLayout>
     );
 }

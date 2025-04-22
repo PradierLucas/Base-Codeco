@@ -10,7 +10,7 @@ export default function Guest({ children }) {
                 </Link>
             </div>
 
-            <div className="w-100 mt-3 px-3 py-4 bg-white shadow-sm rounded">
+            <div className="login-width mt-3 px-3 py-4 bg-white shadow-sm rounded">
                 {children}
             </div>
         </div>
