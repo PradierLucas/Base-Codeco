@@ -17,12 +17,12 @@ class PerfilComponentesSeed extends Seeder
     {
         $perfil     = Perfil::find(1);
 
-        PerfilComponente::create([
+        PerfilComponente::firstOrCreate([
             'id_componente' => Componentes::find(1)->id,
             'id_perfil'     => $perfil->id,
             'sn_activo'        => true
         ]);
-        PerfilComponente::create([
+        PerfilComponente::firstOrCreate([
             'id_componente' => Componentes::find(2)->id,
             'id_perfil'     => $perfil->id,
             'sn_activo'        => true

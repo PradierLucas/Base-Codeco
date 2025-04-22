@@ -15,7 +15,7 @@ class IdentidadesSeeder extends Seeder
     {
         $pais=Geopais::find(14);
 
-        Identidades::create([
+        Identidades::firstOrCreate([
             'id'=>'1',
             'descripcion'=>'<Sin Informar>',
             'abreviatura'=>'S/Info',
@@ -28,7 +28,7 @@ class IdentidadesSeeder extends Seeder
             'sn_registrosistema'=>true,
             'id_pais'=>1,
         ]);
-        Identidades::create([
+        Identidades::firstOrCreate([
             'id'=>'2',
             'descripcion'=>'CUIT',
             'abreviatura'=>'CUIT',
@@ -41,7 +41,7 @@ class IdentidadesSeeder extends Seeder
             'sn_registrosistema'=>false,
             'id_pais'=> 14,
         ]);
-        Identidades::create([
+        Identidades::firstOrCreate([
             'id'=>'3',
             'descripcion'=>'DNI',
             'abreviatura'=>'DNI',
@@ -54,7 +54,7 @@ class IdentidadesSeeder extends Seeder
             'sn_registrosistema'=>false,
             'id_pais'=> 14,
         ]);
-        Identidades::create([
+        Identidades::firstOrCreate([
             'id'=>'4',
             'descripcion'=>'CUIL',
             'abreviatura'=>'CUIL',

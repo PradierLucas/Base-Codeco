@@ -16,42 +16,42 @@ class MenuComponenteSeed extends Seeder
     public function run(): void
     {
         //Gestion de contacto - Contactos
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(1)->id,
             'id_componente' => Componentes::find(1)->id,
             'orden'         => 1,
             'sn_activo'        => true
         ]);
         //Gestion de contacto - Radicaciones
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(1)->id,
             'id_componente' => Componentes::find(2)->id,
             'orden'         => 2,
             'sn_activo'        => true
         ]);
         //Gestion de contacto - caregorias
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(1)->id,
             'id_componente' => Componentes::find(3)->id,
             'orden'         => 3,
             'sn_activo'        => true
         ]);
         //Gestion de contacto - Contactos
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(2)->id,
             'id_componente' => Componentes::find(4)->id,
             'orden'         => 1,
             'sn_activo'        => true
         ]);
         //Facturador Factura A
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(2)->id,
             'id_componente' => Componentes::find(5)->id,
             'orden'         => 1,
             'sn_activo'        => true
         ]);
         //Facturador Factura B
-        MenuComponente::create([
+        MenuComponente::firstOrCreate([
             'id_menu'       => Menu::find(2)->id,
             'id_componente' => Componentes::find(6)->id,
             'orden'         => 1,

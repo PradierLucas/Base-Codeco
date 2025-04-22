@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('componentes/modal/',[ApiFrontController::class,'getComponentesSnModal']);
-Route::get('api/componentes/{nombre}/{url?}/{nombreBoton?}', [ApiFrontController::class, 'getComponentePorNombre']);
+Route::get('api/componentes', [ApiFrontController::class, 'getComponentePorNombre']);

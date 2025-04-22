@@ -13,7 +13,7 @@ class ContactosSeeder extends Seeder
      */
     public function run(): void
     {
-        Contactos::create([
+        Contactos::firstOrCreate([
             'nombresegundo'=>'...',
             'apellidorazonsocial'=>'...',
             'apellidoynombre'=>'...',

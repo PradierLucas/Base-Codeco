@@ -13,7 +13,7 @@ class GeopaisSeeder extends Seeder
      */
     public function run(): void
     {
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '1',
             'nombre' => '<sin info>',
             'abreviatura' => '<s/i>',
@@ -26,7 +26,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '2',
             'nombre' => 'AFGANISTÁN',
             'abreviatura' => 'AFG',
@@ -39,7 +39,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '3',
             'nombre' => 'ISLAS GLAND',
             'abreviatura' => 'ALA',
@@ -52,7 +52,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '4',
             'nombre' => 'ALBANIA',
             'abreviatura' => 'ALB',
@@ -65,7 +65,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '5',
             'nombre' => 'ALEMANIA',
             'abreviatura' => 'DEU',
@@ -78,7 +78,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '6',
             'nombre' => 'ANDORRA',
             'abreviatura' => 'AND',
@@ -91,7 +91,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '7',
             'nombre' => 'ANGOLA',
             'abreviatura' => 'AGO',
@@ -104,7 +104,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '8',
             'nombre' => 'ANGUILLA',
             'abreviatura' => 'AIA',
@@ -117,7 +117,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '9',
             'nombre' => 'ANTÁRTIDA',
             'abreviatura' => 'ATA',
@@ -130,7 +130,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '10',
             'nombre' => 'ANTIGUA Y BARBUDA',
             'abreviatura' => 'ATG',
@@ -143,7 +143,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '11',
             'nombre' => 'ANTILLAS HOLANDESAS',
             'abreviatura' => 'ANT',
@@ -156,7 +156,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '12',
             'nombre' => 'ARABIA SAUDÍ',
             'abreviatura' => 'SAU',
@@ -169,7 +169,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '13',
             'nombre' => 'ARGELIA',
             'abreviatura' => 'DZA',
@@ -182,7 +182,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '14',
             'nombre' => 'ARGENTINA',
             'abreviatura' => 'ARG',
@@ -195,7 +195,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '14',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '15',
             'nombre' => 'ARMENIA',
             'abreviatura' => 'ARM',
@@ -208,7 +208,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '16',
             'nombre' => 'ARUBA',
             'abreviatura' => 'ABW',
@@ -221,7 +221,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '17',
             'nombre' => 'AUSTRALIA',
             'abreviatura' => 'AUS',
@@ -234,7 +234,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '18',
             'nombre' => 'AUSTRIA',
             'abreviatura' => 'AUT',
@@ -247,7 +247,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '19',
             'nombre' => 'AZERBAIYÁN',
             'abreviatura' => 'AZE',
@@ -260,7 +260,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '20',
             'nombre' => 'BAHAMAS',
             'abreviatura' => 'BHS',
@@ -273,7 +273,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '21',
             'nombre' => 'BAHRÁIN',
             'abreviatura' => 'BHR',
@@ -286,7 +286,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '22',
             'nombre' => 'BANGLADESH',
             'abreviatura' => 'BGD',
@@ -299,7 +299,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '23',
             'nombre' => 'BARBADOS',
             'abreviatura' => 'BRB',
@@ -312,7 +312,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '24',
             'nombre' => 'BIELORRUSIA',
             'abreviatura' => 'BLR',
@@ -325,7 +325,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '25',
             'nombre' => 'BÉLGICA',
             'abreviatura' => 'BEL',
@@ -338,7 +338,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '26',
             'nombre' => 'BELICE',
             'abreviatura' => 'BLZ',
@@ -351,7 +351,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '27',
             'nombre' => 'BENIN',
             'abreviatura' => 'BEN',
@@ -364,7 +364,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '28',
             'nombre' => 'BERMUDAS',
             'abreviatura' => 'BMU',
@@ -377,7 +377,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '29',
             'nombre' => 'BHUTÁN',
             'abreviatura' => 'BTN',
@@ -390,7 +390,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '30',
             'nombre' => 'BOLIVIA',
             'abreviatura' => 'BOL',
@@ -403,7 +403,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '31',
             'nombre' => 'BOSNIA Y HERZEGOVINA',
             'abreviatura' => 'BIH',
@@ -416,7 +416,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '32',
             'nombre' => 'BOTSUANA',
             'abreviatura' => 'BWA',
@@ -429,7 +429,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '33',
             'nombre' => 'ISLA BOUVET',
             'abreviatura' => 'BVT',
@@ -442,7 +442,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '34',
             'nombre' => 'BRASIL',
             'abreviatura' => 'BRA',
@@ -455,7 +455,7 @@ class GeopaisSeeder extends Seeder
             'id_provincia_determinada' => '1',
         ]);
 
-        GeoPais::create([
+        GeoPais::firstOrCreate([
             'id' => '35',
             'nombre' => 'BRUNÉI',
             'abreviatura' => 'BRN',

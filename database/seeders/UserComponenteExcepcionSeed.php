@@ -15,16 +15,16 @@ class UserComponenteExcepcionSeed extends Seeder
      */
     public function run(): void
     {
-        UserComponenteExcepcion::create([
+        UserComponenteExcepcion::firstOrCreate([
             'id_user'      => User::find(3)->id,
             'id_componente'=> Componentes::find(2)->id
         ]);
         //Caso de ejemplo para probar que se obtiene el perfil y el menu independientemente si existe una restriccion de componentes
-        //UserComponenteExcepcion::create([
+        //UserComponenteExcepcion::firstOrCreate([
         //    'id_user'      => User::find(3)->id,
         //    'id_componente'=> Componente::find(6)->id
         //]);
-        //UserComponenteExcepcion::create([
+        //UserComponenteExcepcion::firstOrCreate([
         //    'id_user'      => User::find(3)->id,
         //    'id_componente'=> Componente::find(4)->id
         //]);

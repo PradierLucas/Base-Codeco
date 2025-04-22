@@ -4,11 +4,12 @@ import Modal from 'react-modal';
 import CreateMenu from './Create';
 import EditMenu from './Edit';
 import DashboardLayout from '@/Layouts/Sidebar';
+import ComponenteModal from '@/Components/ComponenteModal';
 Modal.setAppElement('#app');
 
 
 const Vista = ({ auth, menus }) => {
-    const excepciones = JSON.parse(localStorage.getItem('excepciones'));
+    
 
     const [isVerModalOpen, setIsVerModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -49,7 +50,11 @@ const Vista = ({ auth, menus }) => {
 
             <div className='d-flex justify-content-between'>
                 <h2 className="">Menús</h2>
-                {!excepciones.some((excepcion) => excepcion.componente === 'Agregar') && (
+
+                <ComponenteModal 
+                nombre={'Agregar'}
+                />
+                {/* {!excepciones.some((excepcion) => excepcion.componente === 'Agregar') && (
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -57,7 +62,7 @@ const Vista = ({ auth, menus }) => {
                 >
                     Agregar Menú
                 </button>
-            )}
+            )} */}
             </div>
 
             <div className="tabla-index">

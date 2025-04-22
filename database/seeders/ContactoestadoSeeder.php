@@ -13,7 +13,7 @@ class ContactoestadoSeeder extends Seeder
      */
     public function run(): void
     {
-        Contactoestado::create([
+        Contactoestado::firstOrCreate([
             'descripcion'=>'normal',
             'abreviatura'=>'normal',
             'abreviatura_corta'=>'nml',

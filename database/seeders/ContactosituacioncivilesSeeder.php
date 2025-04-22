@@ -13,27 +13,27 @@ class ContactosituacioncivilesSeeder extends Seeder
      */
     public function run(): void
     {
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'1',
             'descripcion'=>'...' 
         ]);
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'2',
             'descripcion'=>'Soltero/a' 
         ]);
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'3',
             'descripcion'=>'Casado/a' 
         ]);
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'4',
             'descripcion'=>'Viudo/a' 
         ]);
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'5',
             'descripcion'=>'Divorciado/a' 
         ]);
-        Contactosituacionciviles::create([
+        Contactosituacionciviles::firstOrCreate([
             'id'=>'6',
             'descripcion'=>'Concubino/a' 
         ]);

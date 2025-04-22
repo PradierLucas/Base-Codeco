@@ -12,13 +12,13 @@ class MenuSeed extends Seeder
      */
     public function run(): void
     {
-        Menu::create([
+        Menu::firstOrCreate([
             'nombre'      => 'Gestión de contacto',
             'abreviatura' => 'GC',
             'informacion' => '...',
             'sn_activo'      => true
         ]);
-        Menu::create([
+        Menu::firstOrCreate([
             'nombre'      => 'Facturador',
             'abreviatura' => 'FAC',
             'informacion' => '...',

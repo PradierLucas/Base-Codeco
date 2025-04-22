@@ -16,14 +16,14 @@ class UserPerfilSeed extends Seeder
     public function run(): void
     {
         //Usuario Thyago perfil Facturador
-        UserPerfil::create(
+        UserPerfil::firstOrCreate(
             [
                 'id_user'    => User::find(2)->id,
                 'id_perfil'  => Perfil::find(1)->id,
                 'sn_activo'     => true
             ]
         );
-        UserPerfil::create(
+        UserPerfil::firstOrCreate(
             [
                 'id_user'    => User::find(2)->id,
                 'id_perfil'  => Perfil::find(3)->id,
@@ -31,7 +31,7 @@ class UserPerfilSeed extends Seeder
             ]
         );
         // Lucas perfil Usuario CRM
-        UserPerfil::create(
+        UserPerfil::firstOrCreate(
             [
                 'id_user'    => User::find(3)->id,
                 'id_perfil'  => Perfil::find(2)->id,
@@ -39,7 +39,7 @@ class UserPerfilSeed extends Seeder
             ]
         );
         // Lucas perfil Facturador
-        UserPerfil::create(
+        UserPerfil::firstOrCreate(
             [
                 'id_user'    => User::find(3)->id,
                 'id_perfil'  => Perfil::find(1)->id,

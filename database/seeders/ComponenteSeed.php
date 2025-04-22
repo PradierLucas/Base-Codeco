@@ -13,37 +13,37 @@ class ComponenteSeed extends Seeder
      */
     public function run(): void
     {
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Contactos',
             'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/contactos'
         ]);
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Radicaciones',
             'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/radicaciones'
         ]);
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Categorias',
             'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/categorias'
         ]);
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Agregar',
             'componente_item_proceso' => 'LLama a agregar contacto',
             'sn_activo'      => true,
             'url'         => 'test/contactos/agregar'
         ]);
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Factura A',
             'componente_item_proceso' => '...',
             'sn_activo'      => true,
             'url'         => 'test/facturaA'
         ]);
-        Componentes::create([
+        Componentes::firstOrCreate([
             'nombre'      => 'Factura B',
             'componente_item_proceso' => '...',
             'sn_activo'      => true,

@@ -13,7 +13,7 @@ class CondiciontributariasSeeder extends Seeder
      */
     public function run(): void
     {
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'1',
             'descripcion'=>'<No informado>',
             'abreviatura'=>'<Ni info.>',
@@ -22,7 +22,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>8,
             'sn_registrosistema'=>true,
         ]);
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'2',
             'descripcion'=>'IVA Responsable Inscripto',
             'abreviatura'=>'IVA R.I',
@@ -31,7 +31,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>1,
             'sn_registrosistema'=>true,
         ]);
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'3',
             'descripcion'=>'IVA Responsable no Inscripto',
             'abreviatura'=>'IVA R.N.I',
@@ -40,7 +40,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>2,
             'sn_registrosistema'=>true,
         ]);
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'4',
             'descripcion'=>'IVA no Responsable',
             'abreviatura'=>'IVA N.R',
@@ -49,7 +49,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>3,
             'sn_registrosistema'=>true,
         ]);
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'5',
             'descripcion'=>'IVA Sujeto Exento',
             'abreviatura'=>'Exento',
@@ -58,7 +58,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>4,
             'sn_registrosistema'=>true,
         ]);
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'6',
             'descripcion'=>'Consumidor Final',
             'abreviatura'=>'C.F',
@@ -67,7 +67,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>5,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'7',
             'descripcion'=>'Responsable Monotributo',
             'abreviatura'=>'R.M',
@@ -76,7 +76,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>6,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'8',
             'descripcion'=>'Sujeto no Categorizado',
             'abreviatura'=>'SNC',
@@ -85,7 +85,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>7,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'9',
             'descripcion'=>'Proveedor del Exterior',
             'abreviatura'=>'Prov.Ext.',
@@ -94,7 +94,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>8,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'10',
             'descripcion'=>'Cliente del Exterior',
             'abreviatura'=>'Clie.Ext.',
@@ -103,7 +103,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>9,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'11',
             'descripcion'=>'IVA Liberado Ley N° 19.640',
             'abreviatura'=>'IVA Ley 19640',
@@ -112,7 +112,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>10,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'12',
             'descripcion'=>'IVA Responsable Inscripto Agente de Percepción',
             'abreviatura'=>'IVA R.I Ag.Per.',
@@ -121,7 +121,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>11,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'13',
             'descripcion'=>'Pequeño Contribuyente Eventual',
             'abreviatura'=>'Cont.Event.',
@@ -130,7 +130,7 @@ class CondiciontributariasSeeder extends Seeder
             'id_tributaria_afip'=>12,
             'sn_registrosistema'=>true,
         ]);        
-        Condiciontributarias::create([
+        Condiciontributarias::firstOrCreate([
             'id'=>'14',
             'descripcion'=>'Monotributista Social',
             'abreviatura'=>'M.Soc.',
@@ -138,7 +138,7 @@ class CondiciontributariasSeeder extends Seeder
             'sn_condiciontributaria'=>false,
             'id_tributaria_afip'=>13,
             'sn_registrosistema'=>true,
-        ]);        Condiciontributarias::create([
+        ]);        Condiciontributarias::firstOrCreate([
             'id'=>'15',
             'descripcion'=>'Pequeño Contribuyente Eventual Social',
             'abreviatura'=>'Cont.Event.Soc.',

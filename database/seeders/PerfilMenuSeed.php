@@ -16,13 +16,13 @@ class PerfilMenuSeed extends Seeder
     public function run(): void
     {
         //Perfil: Usuario crm Menu: Gestion Contacto
-        PerfilMenu::create([
+        PerfilMenu::firstOrCreate([
             'id_perfil' => Perfil::find(2)->id,
             'id_menu'   => Menu::find(1)->id,
             'sn_activo'    => true
         ]);
         //Perfil: Facturador Menu: Facturador
-        PerfilMenu::create([
+        PerfilMenu::firstOrCreate([
             'id_perfil' => Perfil::find(1)->id,
             'id_menu'   => Menu::find(2)->id,
             'sn_activo'    => true

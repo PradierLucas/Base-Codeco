@@ -13,7 +13,7 @@ class GeoprovinciasregionesSeeder extends Seeder
      */
     public function run(): void
     {
-        Geoprovinciasregiones::create([
+        Geoprovinciasregiones::firstOrCreate([
                 'descripcion'=>'prueba',
                 'abreviatura'=>'prb',
                 'sn_activo'=>true,
