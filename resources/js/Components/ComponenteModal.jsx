@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function ComponenteModal({ nombre, url, onclick, nombreBoton }) {
+export default function ComponenteModalOURL({ nombre, url, onclick, nombreBoton }) {
     const excepciones = JSON.parse(localStorage.getItem('excepciones'));
     const [snModal, setSnModal] = useState(null);
     const [urlExistente, setUrl] = useState('');

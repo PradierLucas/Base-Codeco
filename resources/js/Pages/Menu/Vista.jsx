@@ -5,6 +5,7 @@ import CreateMenu from './Create';
 import EditMenu from './Edit';
 import DashboardLayout from '@/Layouts/Sidebar';
 import ComponenteModal from '@/Components/ComponenteModal';
+import ComponenteModalOURL from '@/Components/ComponenteModal';
 Modal.setAppElement('#app');
 
 
@@ -51,9 +52,10 @@ const Vista = ({ auth, menus }) => {
             <div className='d-flex justify-content-between'>
                 <h2 className="">Menús</h2>
 
-                <ComponenteModal 
-                nombre={'Agregar'}
-                />
+                <ComponenteModalOURL 
+                nombre={'Menus'}
+                onclick={openModal}
+/>
                 {/* {!excepciones.some((excepcion) => excepcion.componente === 'Agregar') && (
                 <button
                     type="button"

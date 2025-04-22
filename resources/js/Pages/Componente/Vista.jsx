@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import EditComponente from './Edit';
 import DashboardLayout from '@/Layouts/Sidebar';
 import ComponenteModal from '@/Components/ComponenteModal';
+import VerificarComponente from '@/Components/VerificarComponente';
 
 Modal.setAppElement('#app');
 
@@ -120,6 +121,7 @@ const Vista = ({ auth, componentes }) => {
                                                 className="dropdown-menu"
                                                 aria-labelledby="dropdownMenu2"
                                             >
+                                                <VerificarComponente nombre={'EditarComponente'}>
                                                 <a
                                                     className="dropdown-item"
                                                     onClick={() =>
@@ -128,6 +130,7 @@ const Vista = ({ auth, componentes }) => {
                                                 >
                                                     Editar
                                                 </a>
+                                                </VerificarComponente>
                                                 <a
                                                     className="dropdown-item"
                                                     onClick={() =>
