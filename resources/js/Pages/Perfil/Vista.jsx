@@ -48,7 +48,7 @@ const Vista = ({ auth, perfiles }) => {
 
     return (
 
-        <DashboardLayout>
+        <>
    
                 <div className='d-flex justify-content-between'>
                     <h2 className="">Perfiles</h2>
@@ -261,7 +261,7 @@ const Vista = ({ auth, perfiles }) => {
                     />
                 </div>
             </Modal>
-            </DashboardLayout>
+            </>
    
     )
 }

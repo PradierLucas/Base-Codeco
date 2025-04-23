@@ -56,15 +56,7 @@ const Vista = ({ auth, menus }) => {
                 nombre={'Menus'}
                 onclick={openModal}
 />
-                {/* {!excepciones.some((excepcion) => excepcion.componente === 'Agregar') && (
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={openModal}
-                >
-                    Agregar Menú
-                </button>
-            )} */}
+
             </div>
 
             <div className="tabla-index">

@@ -38,7 +38,7 @@ const Vista = ({ auth, usuarios }) => {
 
 
     return (
-        <DashboardLayout>
+        <>
 
             <div className='d-flex justify-content-start'>
                 <h2 className="">Usuarios</h2>
@@ -213,7 +213,7 @@ const Vista = ({ auth, usuarios }) => {
                     />
                 </div>
             </Modal>
-        </DashboardLayout>
+        </>
 
     )
 }

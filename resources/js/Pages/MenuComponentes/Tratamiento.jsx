@@ -209,7 +209,7 @@ const Create = ({ auth }) => {
     };
 
     return (
-        <DashboardLayout>
+        <>
 
                 <div className="d-flex justify-content-between">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Menús - Componentes</h2>
@@ -556,7 +556,7 @@ const Create = ({ auth }) => {
                     </div>
                 </div>
             </Modal>
-            </DashboardLayout>
+            </>
    
     );
 };

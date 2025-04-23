@@ -22,7 +22,7 @@ const Edit = ({ auth, categoria }) => {
     }
 
     return (
-        <DashboardLayout>
+        <>
 
                 <div className=' d-flex justify-content-between'>
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Editar Categoria</h2>
@@ -116,7 +116,7 @@ const Edit = ({ auth, categoria }) => {
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
+        </>
     )
 }
 

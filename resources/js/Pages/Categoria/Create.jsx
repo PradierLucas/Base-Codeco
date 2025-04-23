@@ -22,7 +22,7 @@ const Create = ({ auth }) => {
     }
 
     return (
-        <DashboardLayout>
+        <>
                 <div className=' d-flex justify-content-between'>
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">Crear Categoria</h2>
                     <a href={route('categoria.index')}>
@@ -118,7 +118,7 @@ const Create = ({ auth }) => {
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
+        </>
     )
 }
 

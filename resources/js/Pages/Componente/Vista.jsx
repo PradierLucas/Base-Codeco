@@ -50,7 +50,7 @@ const Vista = ({ auth, componentes }) => {
     };
 
     return (
-        <DashboardLayout>
+        <>
 
             <div className="d-flex justify-content-between mb-5">
                 <h2 className="">Componentes</h2>
@@ -304,7 +304,7 @@ const Vista = ({ auth, componentes }) => {
                     />
                 </div>
             </Modal>
-        </DashboardLayout>
+        </>
     );
 };
 

@@ -6,8 +6,9 @@ import './../../../css/app.css';
 
 const Index = ({ auth, categorias }) => {
     return (
-
-        <DashboardLayout>             <div className='d-flex justify-content-between'>
+         
+         <>
+            <div className='d-flex justify-content-between'>
             <h2 className="">Categorias</h2>
             <a href={route('categoria.create')}>
                 <button className='btn btn-primary'>Nueva Categorias</button>
@@ -84,8 +85,7 @@ const Index = ({ auth, categorias }) => {
                     </table>
                 </div>
             </div>
-        </DashboardLayout>
-
+</>
     )
 }
 
