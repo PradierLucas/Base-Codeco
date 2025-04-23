@@ -21,6 +21,7 @@ export default function Dashboard({ auth }) {
             setExcepciones(data);
             console.log(data)
             localStorage.setItem('excepciones', JSON.stringify(data));
+            
         } catch (error) {
             console.error('Error fetching perfiles, menus, and componentes:', error);
         }
@@ -32,6 +33,7 @@ export default function Dashboard({ auth }) {
     // Guardar usuario en localStorage
     useEffect(() => {
         localStorage.setItem('user', JSON.stringify(userData));
+        sessionStorage.setItem('user', JSON.stringify(userData));
     }, [userData]);
 
     // Función para obtener los datos del backend
@@ -53,7 +55,7 @@ export default function Dashboard({ auth }) {
     }, []);
 
     return (
-        <DashboardLayout>
+       <>
             <Head title="Dashboard" />
 
             <div className="py-12">
@@ -65,6 +67,8 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
+
+            </>
+      
     );
 }

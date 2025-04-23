@@ -177,7 +177,7 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
 
         <>
 
-        <DashboardLayout>
+       
             <h3 className="text-center ">Crear Contacto</h3>
 
             <div className="container">
@@ -778,7 +778,7 @@ const CreateContact = ({ auth, fisicojuridico, identidades, condicionestributari
                 </div>
 
             </Modal>
-        </DashboardLayout>
+      
 </>
     );
 };
