@@ -239,8 +239,8 @@ const Create = ({ auth }) => {
                                             <p>{menuInformacion}</p>
                                         </>
                                     ) : (
-                                        <div className='d-flex justify-content-center align-items-center'> 
-                                        <p >Información del Menú</p>
+                                        <div className='d-flex justify-content-center align-items-center'>
+                                            <p >Información del Menú</p>
                                         </div>
                                     )}
                                 </div>
@@ -314,7 +314,36 @@ const Create = ({ auth }) => {
                             <form onSubmit={handleSubmit}>
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
+                                        <div className='row d-flex justify-content-between'>
+                                            <h4 className='col-3'>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
+                                            <div className='d-flex justify-content-end col-3'>
+                                                <label className="form-label">Iniciar orden en</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control form-control-sm mx-3"
+                                                    value={data.componentesOrden[componenteSeleccionado?.id] || 0} // Vinculado al estado
+                                                    onChange={(e) => handleOrdenChange(componenteSeleccionado?.id, e.target.value)}
+                                                    style={{
+                                                        width: '60px',
+                                                        height: '30px',
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className='d-flex justify-content-start col-3'>
+                                                <label htmlFor="">En intevalos de</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control form-control-sm mx-3"
+                                                    value={data.componentesOrden[componenteSeleccionado?.id] || 0} // Vinculado al estado
+                                                    onChange={(e) => handleOrdenChange(componenteSeleccionado?.id, e.target.value)}
+                                                    style={{
+                                                        width: '60px',
+                                                        height: '30px',
+                                                    }}
+                                                />
+                                            </div>
+                                            <button className='btn btn-primary col-2'>Aplicar</button>
+                                        </div>
                                     </div>
                                     <div className="card-body">
                                         {data.componentes.length > 0 ? (
@@ -323,45 +352,45 @@ const Create = ({ auth }) => {
                                                     <div className="table-responsive overflow-visible">
                                                         <table className="table table-striped table-hover align-middle">
                                                             <thead className="sticky-top">
-                                                        <tr>
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">Nombre</th>
-                                                            <th scope="col">Descripción</th>
-                                                            <th scope="col">URL</th>
-                                                            <th scope="col">Orden</th>
-                                                            <th scope="col">Activo</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {data.componentes.map((componente) => (
-                                                            <tr key={componente.id}>
-                                                                <th scope="row">{componente.id}</th>
-                                                                <td>{componente.nombre}</td>
-                                                                <td>{componente.componente_item_proceso}</td>
-                                                                <td>{componente.url}</td>
-                                                                <td>
-                                                                    <input
-                                                                        type="number"
-                                                                        className="form-control form-control-sm"
-                                                                        min="0"
-                                                                        value={data.componentesOrden[componente.id] || 0} // Vinculado al estado
-                                                                        onChange={(e) => handleOrdenChange(componente.id, e.target.value)} // Actualiza el estado
-                                                                        style={{ width: '80px' }}
-                                                                    />
-                                                                </td>
-                                                                <td>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        className="form-check-input"
-                                                                        checked={data.componentesActivos[componente.id] || false}
-                                                                        onChange={() => handleCheckboxChange(componente.id)}
-                                                                    />
-                                                                </td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                                <tr>
+                                                                    <th scope="col">ID</th>
+                                                                    <th scope="col">Nombre</th>
+                                                                    <th scope="col">Descripción</th>
+                                                                    <th scope="col">URL</th>
+                                                                    <th scope="col">Orden</th>
+                                                                    <th scope="col">Activo</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {data.componentes.map((componente) => (
+                                                                    <tr key={componente.id}>
+                                                                        <th scope="row">{componente.id}</th>
+                                                                        <td>{componente.nombre}</td>
+                                                                        <td>{componente.componente_item_proceso}</td>
+                                                                        <td>{componente.url}</td>
+                                                                        <td>
+                                                                            <input
+                                                                                type="number"
+                                                                                className="form-control form-control-sm"
+                                                                                min="0"
+                                                                                value={data.componentesOrden[componente.id] || 0} // Vinculado al estado
+                                                                                onChange={(e) => handleOrdenChange(componente.id, e.target.value)} // Actualiza el estado
+                                                                                style={{ width: '80px' }}
+                                                                            />
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                className="form-check-input"
+                                                                                checked={data.componentesActivos[componente.id] || false}
+                                                                                onChange={() => handleCheckboxChange(componente.id)}
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                                 <div className="row d-flex justify-content-end mt-3">
                                                     <div className='col-6'>
@@ -470,10 +499,10 @@ const Create = ({ auth }) => {
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
-                                                {isComponenteModalOpen ?(
+                                                {isComponenteModalOpen ? (
                                                     <>
-                                                    <th>URL</th>
-                                                    <th>Item/Proceso</th>
+                                                        <th>URL</th>
+                                                        <th>Item/Proceso</th>
                                                     </>)
                                                     : ""}
                                             </tr>
@@ -498,9 +527,9 @@ const Create = ({ auth }) => {
                                                                 <td>{item.nombre}</td>
                                                             </td>
                                                             {isComponenteModalOpen ?
-                                                            <>
-                                                                <td>{item.url}</td>
-                                                                <td>{item.componente_item_proceso}</td>
+                                                                <>
+                                                                    <td>{item.url}</td>
+                                                                    <td>{item.componente_item_proceso}</td>
                                                                 </>
                                                                 : ""}
                                                         </tr>
