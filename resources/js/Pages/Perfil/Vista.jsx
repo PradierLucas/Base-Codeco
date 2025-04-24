@@ -189,7 +189,7 @@ const Vista = ({ auth, perfiles }) => {
                         <div className="modal-header d-flex justify-content-between">
                             <h5 className="modal-title mb-3">
                                 {selectedItem && (
-                                    <span>Ver Menú - {selectedItem.id}</span>
+                                    <span>Ver Perfil - {selectedItem.id}</span>
                                 )}
                             </h5>
                             <button

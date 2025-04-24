@@ -143,7 +143,7 @@ const Vista = ({ auth, usuarios }) => {
                         <div className="modal-header d-flex justify-content-between">
                             <h5 className="modal-title mb-3">
                                 {selectedItem && (
-                                    <span>Ver Menú - {selectedItem.id}</span>
+                                    <span>Ver Usuario - {selectedItem.id}</span>
                                 )}
                             </h5>
                             <button
@@ -197,7 +197,7 @@ const Vista = ({ auth, usuarios }) => {
                 overlayClassName="modal-overlay"
             >
                 <div className="modal-header d-flex justify-content-between">
-                    <h3 className="modal-title">Editar Menú</h3>
+                    <h3 className="modal-title">Editar Usuario</h3>
                     <button
                         type="button"
                         className="btn-close"

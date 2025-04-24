@@ -54,7 +54,7 @@ const Vista = ({ auth, componentes }) => {
 
             <div className="d-flex justify-content-between mb-5">
                 <h2 className="">Componentes</h2>
-                <ComponenteModal nombre={"NuevoComponente"} onclick={openModal}/>
+                <ComponenteModal nombre={"NuevoComponente"} onclick={openModal} nombreBoton={'Nuevo Componente'}/>
     
 
 

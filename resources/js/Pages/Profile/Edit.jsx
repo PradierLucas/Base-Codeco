@@ -8,7 +8,7 @@ import DashboardLayout from '@/Layouts/Sidebar';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
-        <DashboardLayout>
+        <>
 
 
             <div className="py-12">
@@ -26,6 +26,6 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     </div>
                 </div>
             </div>
-            </DashboardLayout>
+            </>
     );
 }

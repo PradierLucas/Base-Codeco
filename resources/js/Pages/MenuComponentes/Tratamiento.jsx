@@ -242,28 +242,31 @@ const Create = ({ auth }) => {
                                 </div>
                             </div>
                         </div>
+                        {nombreMenu ? 
                         <div className='row mb-3 justify-content-evenly'>
-                            <div className="card col-5 mb-3">
-                                <h3 className='p-2'>Componente</h3>
-                                <div className="input-group mb-3 p-2 ">
-                                    <input
-                                        id="Componente"
-                                        type="text"
-                                        name="Componente"
-                                        value={nombreComponente}
-                                        className="form-control"
-                                        readOnly
-                                    />
-                                    <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
-                                </div>
-                            </div>
-                            <div className=' card col-6 mb-3'>
-                                <div className='card-body'>
-                                    <h4>Información</h4>
-                                    {componenteInformacion ? componenteInformacion : <span className='text-muted'>Sin Selección.</span>}
-                                </div>
+                        <div className="card col-5 mb-3">
+                            <h3 className='p-2'>Componente</h3>
+                            <div className="input-group mb-3 p-2 ">
+                                <input
+                                    id="Componente"
+                                    type="text"
+                                    name="Componente"
+                                    value={nombreComponente}
+                                    className="form-control"
+                                    readOnly
+                                />
+                                <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
                             </div>
                         </div>
+                        <div className=' card col-6 mb-3'>
+                            <div className='card-body'>
+                                <h4>Información</h4>
+                                {componenteInformacion ? componenteInformacion : <span className='text-muted'>Sin Selección.</span>}
+                            </div>
+                        </div>
+                    </div>
+                        : ''}
+                        
 
                         {/* Vista del Componente seleccionado */}
                         <div className='card mb-3'>
