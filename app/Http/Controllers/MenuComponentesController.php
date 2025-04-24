@@ -34,6 +34,7 @@ class MenuComponentesController extends Controller
         $page = $request->input('page', 1);
 
         $results = Componentes::where('nombre', 'like', "%$query%")
+        ->where('sn_modal', false)
             ->paginate(5, ['*'], 'page', $page)
             ->appends(['query' => $query]);
 

@@ -4,6 +4,12 @@
     margin: 0 45px;
 }
 
+.tabla-menu{
+    overflow-y:auto; 
+    height:180px;
+    margin: 0 45px;
+}
+
 /* Estilos para el overlay del modal */
 .modal-overlay {
     position: fixed;

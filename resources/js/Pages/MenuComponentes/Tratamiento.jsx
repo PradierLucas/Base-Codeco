@@ -18,7 +18,6 @@ const Create = ({ auth }) => {
 
     const [shouldReset, setShouldReset] = useState(false);
     const [menuInformacion, setMenuInformacion] = useState('');
-    const [componenteInformacion, setComponenteInformacion] = useState('');
     const [isComponenteModalOpen, setIsComponenteModalOpen] = useState(false);
     const [componenteSearchQuery, setComponenteSearchQuery] = useState('');
     const [componenteSearchResults, setComponenteSearchResults] = useState([]);
@@ -93,7 +92,6 @@ const Create = ({ auth }) => {
         setComponenteSeleccionado(null);
         setNombreComponente('');
         setMenuInformacion('');
-        setComponenteInformacion('');
     };
 
 
@@ -170,7 +168,6 @@ const Create = ({ auth }) => {
     const handleSelectComponente = (componente) => {
         data.id_componente = componente.id;
         setNombreComponente(componente.nombre);
-        setComponenteInformacion(componente.informacion);
         setComponenteSeleccionado(componente); // Guardar el componente completo
         closeModal();
     };
@@ -211,17 +208,17 @@ const Create = ({ auth }) => {
     return (
         <>
 
-                <div className="d-flex justify-content-between">
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Menús - Componentes</h2>
-                </div>
+            <div className="d-flex justify-content-evenly">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">Menús Configuración</h2>
+            </div>
 
             <div className='container'>
                 <div className="card">
                     <div className="card-body">
                         {/* BOTONES DE BUSQUEDA */}
-                        <div className='row d-flex justify-content-evenly'>
-                            <div className="card col-5 mb-3">
-                                <h3 className='p-2'>Menú</h3>
+                        <div className="row d-flex justify-content-between mx-1">
+                            <div className="col-5 mb-3">
+                                <h3 className="p-2">Menú</h3>
                                 <div className="input-group mb-3 p-2">
                                     <input
                                         id="Menu"
@@ -230,170 +227,175 @@ const Create = ({ auth }) => {
                                         value={nombreMenu}
                                         className="form-control"
                                         readOnly
-                                    // El campo es de solo lectura
                                     />
                                     <button className="btn btn-primary" onClick={openMenuModal}>Buscar</button>
                                 </div>
                             </div>
-                            <div className='card col-6 mb-3'>
-                                <div className='card-body'>
-                                    <h4>Información</h4>
-                                    {menuInformacion ? menuInformacion : <span className='text-muted'>Sin Selección.</span>}
-                                </div>
-                            </div>
-                        </div>
-                        {nombreMenu ? 
-                        <div className='row mb-3 justify-content-evenly'>
-                        <div className="card col-5 mb-3">
-                            <h3 className='p-2'>Componente</h3>
-                            <div className="input-group mb-3 p-2 ">
-                                <input
-                                    id="Componente"
-                                    type="text"
-                                    name="Componente"
-                                    value={nombreComponente}
-                                    className="form-control"
-                                    readOnly
-                                />
-                                <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
-                            </div>
-                        </div>
-                        <div className=' card col-6 mb-3'>
-                            <div className='card-body'>
-                                <h4>Información</h4>
-                                {componenteInformacion ? componenteInformacion : <span className='text-muted'>Sin Selección.</span>}
-                            </div>
-                        </div>
-                    </div>
-                        : ''}
-                        
-
-                        {/* Vista del Componente seleccionado */}
-                        <div className='card mb-3'>
-                            <div className='card-header'>
-                                <h4>{'Componente' || <span className='text-muted'> Sin selección</span>}</h4>
-                            </div>
-                            <div className='card-body'>
-                                {nombreComponente && componenteSeleccionado ? (
-                                    <>
-                                        <table className="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Nombre</th>
-                                                    <th>Descripción</th>
-                                                    <th>URL</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{componenteSeleccionado.id}</td>
-                                                    <td>{componenteSeleccionado.nombre}</td>
-                                                    <td>{componenteSeleccionado.descripcion}</td>
-                                                    <td>{componenteSeleccionado.url}</td>
-                                                    <td>
-                                                        <button
-                                                            type="button" // Cambiado de submit a button
-                                                            className="btn btn-success btn-sm"
-                                                            onClick={agregarComponenteAlMenu}
-                                                            disabled={!data.id_menu ||
-                                                                data.componentes.some(c => c.id === componenteSeleccionado.id)}
-                                                        >
-                                                            Agregar
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </>
-                                ) : (
-                                    <p className="text-muted">Selecciona un componente para ver sus detalles.</p>
-                                )}
-                            </div>
-                        </div>
-                        {/* Vista del Menú seleccionado */}
-                        <form onSubmit={handleSubmit}>
-                            <div className="card">
-                                <div className="card-header">
-                                    <h4>{nombreMenu || <span className='text-muted'> Sin selección</span>}</h4>
-                                </div>
+                            <div className="card col-6 mb-3">
                                 <div className="card-body">
-                                    <h5>Componentes Asociados</h5>
-                                    {data.componentes.length > 0 ? (
+                                    {menuInformacion ? (
                                         <>
-                                            <table className="table table-striped table-hover align-middle">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Nombre</th>
-                                                        <th scope="col">Descripción</th>
-                                                        <th scope="col">URL</th>
-                                                        <th scope="col">Orden</th>
-                                                        <th scope="col">Activo</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {data.componentes.map((componente) => (
-                                                        <tr key={componente.id}>
-                                                            <th scope="row">{componente.id}</th>
-                                                            <td>{componente.nombre}</td>
-                                                            <td>{componente.descripcion}</td>
-                                                            <td>{componente.url}</td>
-                                                            <td>
-                                                                <input
-                                                                    type="number"
-                                                                    className="form-control form-control-sm"
-                                                                    min="0"
-                                                                    value={data.componentesOrden[componente.id] || 0} // Vinculado al estado
-                                                                    onChange={(e) => handleOrdenChange(componente.id, e.target.value)} // Actualiza el estado
-                                                                    style={{ width: '80px' }}
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="form-check-input"
-                                                                    checked={data.componentesActivos[componente.id] || false}
-                                                                    onChange={() => handleCheckboxChange(componente.id)}
-                                                                />
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                            <div className="row d-flex justify-content-end mt-3">
-                                                <div className='col-6'>
-                                                    <button type="button" className="btn btn-secondary" onClick={handleReset}>
-                                                        Limpiar
-                                                    </button>
-                                                </div>
-                                                <div className='col-3'>
-                                                    <button
-                                                        type="submit"
-                                                        className="btn btn-primary"
-                                                        disabled={!data.id_menu}
-                                                    >
-                                                        Aplicar
-                                                    </button>
-                                                </div>
-                                                <div className='col-3'>
-                                                    <button type='submit'
-                                                        className='btn btn-primary'
-                                                        disabled={!data.id_menu}
-                                                        onClick={handleGuardarCambios}>Guardar Cambios</button>
-                                                </div>
-                                            </div>
+                                            <h5>Información del Menú seleccionado</h5>
+                                            <p>{menuInformacion}</p>
                                         </>
                                     ) : (
-                                        <p className='text-muted'>No hay componentes asociados a este menú.</p>
+                                        <div className='d-flex justify-content-center align-items-center'> 
+                                        <p >Información del Menú</p>
+                                        </div>
                                     )}
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
+                        {/* Vista del Componente seleccionado */}
+                        {nombreMenu ?
+
+                            <div className='card mb-3'>
+                                <div className='card-header'>
+                                    <h4>{'Componentes' || <span className='text-muted'> Sin selección</span>}</h4>
+                                </div>
+                                <div className="col-5">
+                                    <div className="input-group p-2 my-2 ">
+                                        <input
+                                            id="Componente"
+                                            type="text"
+                                            name="Componente"
+                                            value={nombreComponente}
+                                            className="form-control"
+                                            readOnly
+                                        />
+                                        <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
+                                    </div>
+                                </div>
+                                {nombreComponente ?
+                                    <div className='card-body'>
+                                        {nombreComponente && componenteSeleccionado ? (
+                                            <>
+                                                <table className="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Nombre</th>
+                                                            <th>Nombre Botón</th>
+                                                            <th>URL</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{componenteSeleccionado.id}</td>
+                                                            <td>{componenteSeleccionado.nombre}</td>
+                                                            <td>{componenteSeleccionado.componente_item_proceso}</td>
+                                                            <td>{componenteSeleccionado.url}</td>
+                                                            <td>
+                                                                <button
+                                                                    type="button" // Cambiado de submit a button
+                                                                    className={data.componentes.some(c => c.id === componenteSeleccionado.id) ? 'btn btn-warning' : 'btn btn-success'}
+                                                                    onClick={agregarComponenteAlMenu}
+                                                                    disabled={!data.id_menu ||
+                                                                        data.componentes.some(c => c.id === componenteSeleccionado.id)}
+                                                                >
+                                                                    {data.componentes.some(c => c.id === componenteSeleccionado.id) ? 'Existente' : 'Agregar'}
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </>
+                                        ) : (
+                                            <p className="text-muted">Selecciona un componente para ver sus detalles.</p>
+                                        )}
+                                    </div>
+                                    : ""}
+                            </div>
+                            : ""}
+                        {/* Vista del Menú seleccionado */}
+                        {nombreMenu ?
+                            <form onSubmit={handleSubmit}>
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
+                                    </div>
+                                    <div className="card-body">
+                                        {data.componentes.length > 0 ? (
+                                            <>
+                                                <div className='tabla-menu'>
+                                                    <div className="table-responsive overflow-visible">
+                                                        <table className="table table-striped table-hover align-middle">
+                                                            <thead className="sticky-top">
+                                                        <tr>
+                                                            <th scope="col">ID</th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Descripción</th>
+                                                            <th scope="col">URL</th>
+                                                            <th scope="col">Orden</th>
+                                                            <th scope="col">Activo</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {data.componentes.map((componente) => (
+                                                            <tr key={componente.id}>
+                                                                <th scope="row">{componente.id}</th>
+                                                                <td>{componente.nombre}</td>
+                                                                <td>{componente.componente_item_proceso}</td>
+                                                                <td>{componente.url}</td>
+                                                                <td>
+                                                                    <input
+                                                                        type="number"
+                                                                        className="form-control form-control-sm"
+                                                                        min="0"
+                                                                        value={data.componentesOrden[componente.id] || 0} // Vinculado al estado
+                                                                        onChange={(e) => handleOrdenChange(componente.id, e.target.value)} // Actualiza el estado
+                                                                        style={{ width: '80px' }}
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="form-check-input"
+                                                                        checked={data.componentesActivos[componente.id] || false}
+                                                                        onChange={() => handleCheckboxChange(componente.id)}
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                                </div>
+                                                <div className="row d-flex justify-content-end mt-3">
+                                                    <div className='col-6'>
+                                                        <button type="button" className="btn btn-secondary" onClick={handleReset}>
+                                                            Limpiar
+                                                        </button>
+                                                    </div>
+                                                    <div className='col-3'>
+                                                        <button
+                                                            type="submit"
+                                                            className="btn btn-primary"
+                                                            disabled={!data.id_menu}
+                                                        >
+                                                            Aplicar
+                                                        </button>
+                                                    </div>
+                                                    <div className='col-3'>
+                                                        <button type='submit'
+                                                            className='btn btn-primary'
+                                                            disabled={!data.id_menu}
+                                                            onClick={handleGuardarCambios}>Guardar Cambios</button>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <p className='text-muted'>No hay componentes asociados a este menú.</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </form>
+                            : ""}
                     </div>
                 </div>
-            </div>
+            </div >
             <Modal
                 isOpen={isMenuModalOpen || isComponenteModalOpen}
                 onRequestClose={closeModal}
@@ -404,7 +406,7 @@ const Create = ({ auth }) => {
                         borderRadius: '10px',
                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                         padding: '20px',
-                        maxWidth: '600px',
+                        maxWidth: isMenuModalOpen ? '600px' : '800px',
                         margin: '0 auto',
                         width: '50%',
                         overflow: 'auto',
@@ -468,6 +470,12 @@ const Create = ({ auth }) => {
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
+                                                {isComponenteModalOpen ?(
+                                                    <>
+                                                    <th>URL</th>
+                                                    <th>Item/Proceso</th>
+                                                    </>)
+                                                    : ""}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -477,19 +485,24 @@ const Create = ({ auth }) => {
                                                 (isMenuModalOpen
                                                     ? menuSearchResults
                                                     : componenteSearchResults).map((item) => (
-                                                        <tr key={item.id}>
-                                                            <td
-                                                                className='table-hover'
-                                                                onClick={() => {
-                                                                    if (isMenuModalOpen) {
-                                                                        handleSelectMenu(item);
-                                                                    } else {
-                                                                        handleSelectComponente(item);
-                                                                    }
-                                                                }}
-                                                            >
-                                                                {item.nombre}
+                                                        <tr key={item.id}
+                                                            className='table-hover'
+                                                            onClick={() => {
+                                                                if (isMenuModalOpen) {
+                                                                    handleSelectMenu(item);
+                                                                } else {
+                                                                    handleSelectComponente(item);
+                                                                }
+                                                            }}>
+                                                            <td>
+                                                                <td>{item.nombre}</td>
                                                             </td>
+                                                            {isComponenteModalOpen ?
+                                                            <>
+                                                                <td>{item.url}</td>
+                                                                <td>{item.componente_item_proceso}</td>
+                                                                </>
+                                                                : ""}
                                                         </tr>
                                                     ))
                                             ) : (
@@ -529,7 +542,7 @@ const Create = ({ auth }) => {
                                                     : componenteCurrentPage} de{" "}
                                                 {isMenuModalOpen
                                                     ? menuLastPage
-                                                    : menuLastPage}
+                                                    : componenteLastPage}
                                             </span>
                                             <button
                                                 type="button"
@@ -559,8 +572,8 @@ const Create = ({ auth }) => {
                     </div>
                 </div>
             </Modal>
-            </>
-   
+        </>
+
     );
 };
 
