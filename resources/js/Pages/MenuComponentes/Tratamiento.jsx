@@ -211,9 +211,9 @@ const Create = ({ auth }) => {
     return (
         <>
 
-                <div className="d-flex justify-content-between">
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Menús - Componentes</h2>
-                </div>
+            <div className="d-flex justify-content-between">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">Menús Configuración</h2>
+            </div>
 
             <div className='container'>
                 <div className="card">
@@ -243,80 +243,78 @@ const Create = ({ auth }) => {
                             </div>
                         </div>
                         <div className='row mb-3 justify-content-evenly'>
-                            <div className="card col-5 mb-3">
-                                <h3 className='p-2'>Componente</h3>
-                                <div className="input-group mb-3 p-2 ">
-                                    <input
-                                        id="Componente"
-                                        type="text"
-                                        name="Componente"
-                                        value={nombreComponente}
-                                        className="form-control"
-                                        readOnly
-                                    />
-                                    <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
-                                </div>
-                            </div>
-                            <div className=' card col-6 mb-3'>
-                                <div className='card-body'>
-                                    <h4>Información</h4>
-                                    {componenteInformacion ? componenteInformacion : <span className='text-muted'>Sin Selección.</span>}
-                                </div>
-                            </div>
-                        </div>
 
-                        {/* Vista del Componente seleccionado */}
-                        <div className='card mb-3'>
-                            <div className='card-header'>
-                                <h4>{'Componente' || <span className='text-muted'> Sin selección</span>}</h4>
-                            </div>
-                            <div className='card-body'>
-                                {nombreComponente && componenteSeleccionado ? (
-                                    <>
-                                        <table className="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Nombre</th>
-                                                    <th>Descripción</th>
-                                                    <th>URL</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{componenteSeleccionado.id}</td>
-                                                    <td>{componenteSeleccionado.nombre}</td>
-                                                    <td>{componenteSeleccionado.descripcion}</td>
-                                                    <td>{componenteSeleccionado.url}</td>
-                                                    <td>
-                                                        <button
-                                                            type="button" // Cambiado de submit a button
-                                                            className="btn btn-success btn-sm"
-                                                            onClick={agregarComponenteAlMenu}
-                                                            disabled={!data.id_menu ||
-                                                                data.componentes.some(c => c.id === componenteSeleccionado.id)}
-                                                        >
-                                                            Agregar
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </>
-                                ) : (
-                                    <p className="text-muted">Selecciona un componente para ver sus detalles.</p>
-                                )}
-                            </div>
                         </div>
+                        {/* Vista del Componente seleccionado */}
+                        {nombreMenu ?
+
+                            <div className='card mb-3'>
+                                <div className='card-header'>
+                                    <h4>{'Componentes' || <span className='text-muted'> Sin selección</span>}</h4>
+                                </div>
+                                <div className="col-5">
+                                    <div className="input-group p-2 my-2 ">
+                                        <input
+                                            id="Componente"
+                                            type="text"
+                                            name="Componente"
+                                            value={nombreComponente}
+                                            className="form-control"
+                                            readOnly
+                                        />
+                                        <button className="btn btn-primary" onClick={openComponenteModal}>Buscar</button>
+                                    </div>
+                                </div>
+                                {nombreComponente ?
+                                    <div className='card-body'>
+                                        {nombreComponente && componenteSeleccionado ? (
+                                            <>
+                                                <table className="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Nombre</th>
+                                                            <th>Nombre Botón</th>
+                                                            <th>URL</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{componenteSeleccionado.id}</td>
+                                                            <td>{componenteSeleccionado.nombre}</td>
+                                                            <td>{componenteSeleccionado.componente_item_proceso}</td>
+                                                            <td>{componenteSeleccionado.url}</td>
+                                                            <td>
+                                                                <button
+                                                                    type="button" // Cambiado de submit a button
+                                                                    className="btn btn-success btn-sm"
+                                                                    onClick={agregarComponenteAlMenu}
+                                                                    disabled={!data.id_menu ||
+                                                                        data.componentes.some(c => c.id === componenteSeleccionado.id)}
+                                                                >
+                                                                    Agregar
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </>
+                                        ) : (
+                                            <p className="text-muted">Selecciona un componente para ver sus detalles.</p>
+                                        )}
+                                    </div>
+                                    : ""}
+                            </div>
+                            : ""}
                         {/* Vista del Menú seleccionado */}
+                        {nombreMenu ? 
                         <form onSubmit={handleSubmit}>
                             <div className="card">
                                 <div className="card-header">
-                                    <h4>{nombreMenu || <span className='text-muted'> Sin selección</span>}</h4>
+                                    <h4>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
                                 </div>
                                 <div className="card-body">
-                                    <h5>Componentes Asociados</h5>
                                     {data.componentes.length > 0 ? (
                                         <>
                                             <table className="table table-striped table-hover align-middle">
@@ -335,7 +333,7 @@ const Create = ({ auth }) => {
                                                         <tr key={componente.id}>
                                                             <th scope="row">{componente.id}</th>
                                                             <td>{componente.nombre}</td>
-                                                            <td>{componente.descripcion}</td>
+                                                            <td>{componente.componente_item_proceso}</td>
                                                             <td>{componente.url}</td>
                                                             <td>
                                                                 <input
@@ -388,6 +386,7 @@ const Create = ({ auth }) => {
                                 </div>
                             </div>
                         </form>
+                        :""}
                     </div>
                 </div>
             </div>
@@ -465,6 +464,9 @@ const Create = ({ auth }) => {
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
+                                                {isComponenteModalOpen ?
+                                                    <th>URL</th>
+                                                    : ""}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -474,19 +476,21 @@ const Create = ({ auth }) => {
                                                 (isMenuModalOpen
                                                     ? menuSearchResults
                                                     : componenteSearchResults).map((item) => (
-                                                        <tr key={item.id}>
-                                                            <td
-                                                                className='table-hover'
-                                                                onClick={() => {
-                                                                    if (isMenuModalOpen) {
-                                                                        handleSelectMenu(item);
-                                                                    } else {
-                                                                        handleSelectComponente(item);
-                                                                    }
-                                                                }}
-                                                            >
-                                                                {item.nombre}
+                                                        <tr key={item.id}
+                                                        className='table-hover'
+                                                        onClick={() => {
+                                                            if (isMenuModalOpen) {
+                                                                handleSelectMenu(item);
+                                                            } else {
+                                                                handleSelectComponente(item);
+                                                            }
+                                                        }}>
+                                                            <td>
+                                                                <td>{item.nombre}</td>
                                                             </td>
+                                                            {isComponenteModalOpen ?
+                                                                    <td>{item.url}</td>
+                                                                    : ""}
                                                         </tr>
                                                     ))
                                             ) : (
@@ -556,8 +560,8 @@ const Create = ({ auth }) => {
                     </div>
                 </div>
             </Modal>
-            </>
-   
+        </>
+
     );
 };
 
