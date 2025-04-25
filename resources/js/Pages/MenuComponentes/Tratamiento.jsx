@@ -31,6 +31,8 @@ const Create = ({ auth }) => {
     const [menuCurrentPage, setMenuCurrentPage] = useState(1);
     const [menuLastPage, setMenuLastPage] = useState(1);
     const [nombreMenu, setNombreMenu] = useState('');
+    const [inicioOrden, setInicioOrden] = useState(0);
+    const [intervalo, setIntervalo] = useState(1);
 
     const { data, setData, post, reset } = useForm(initialValues);
     //FUNCION PARA LLAMAR A LA RUTA QUE AGREGA EL COMPONENTE AL MENU
@@ -57,6 +59,24 @@ const Create = ({ auth }) => {
             }
         }));
     };
+
+    const cambiarOrden = (inicioOrden, intervalo) => {
+        setData((prevData) => {
+            const nuevosOrdenes = {};
+            let ordenActual = inicioOrden;
+
+            prevData.componentes.forEach((componente) => {
+                nuevosOrdenes[componente.id] = ordenActual;
+                ordenActual += intervalo;
+            });
+
+            return {
+                ...prevData,
+                componentesOrden: nuevosOrdenes,
+            };
+        });
+    };
+
     // MANEJO DEL ORDEN DE LOS COMPONENTES
     const handleOrdenChange = (componenteId, valor) => {
         setData((prevData) => ({
@@ -66,6 +86,7 @@ const Create = ({ auth }) => {
                 [componenteId]: parseInt(valor), // Asegúrate de convertir el valor a número
             },
         }));
+        cambiarOrden();
     };
 
     //Guardar Cambios en las relacion menu-componentes
@@ -315,34 +336,41 @@ const Create = ({ auth }) => {
                                 <div className="card">
                                     <div className="card-header">
                                         <div className='row d-flex justify-content-between'>
-                                            <h4 className='col-3'>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
-                                            <div className='d-flex justify-content-end col-3'>
+                                            <h4 className='col-4'>{'Componentes Asociados' || <span className='text-muted'> Sin selección</span>}</h4>
+                                            <div className='d-flex justify-content-end col-6'>
                                                 <label className="form-label">Iniciar orden en</label>
                                                 <input
                                                     type="number"
                                                     className="form-control form-control-sm mx-3"
-                                                    value={data.componentesOrden[componenteSeleccionado?.id] || 0} // Vinculado al estado
-                                                    onChange={(e) => handleOrdenChange(componenteSeleccionado?.id, e.target.value)}
+                                                    value={inicioOrden} 
+                                                    onChange={(e) => setInicioOrden(parseInt(e.target.value) || 0)} // Actualiza el estado directamente
                                                     style={{
                                                         width: '60px',
                                                         height: '30px',
                                                     }}
                                                 />
-                                            </div>
-                                            <div className='d-flex justify-content-start col-3'>
-                                                <label htmlFor="">En intevalos de</label>
+                                                <label htmlFor="">en intevalos de</label>
                                                 <input
                                                     type="number"
                                                     className="form-control form-control-sm mx-3"
-                                                    value={data.componentesOrden[componenteSeleccionado?.id] || 0} // Vinculado al estado
-                                                    onChange={(e) => handleOrdenChange(componenteSeleccionado?.id, e.target.value)}
+                                                    value={intervalo} 
+                                                    onChange={(e) => setIntervalo(parseInt(e.target.value) || 0)} // Actualiza el estado directamente
                                                     style={{
                                                         width: '60px',
                                                         height: '30px',
                                                     }}
                                                 />
                                             </div>
-                                            <button className='btn btn-primary col-2'>Aplicar</button>
+                                            <button
+                                                className="btn btn-primary col-2 mx-3"
+                                                style={{
+                                                    width: '90px',
+                                                    height: '40px',
+                                                }}
+                                                onClick={() => cambiarOrden(inicioOrden, intervalo)}
+                                            >
+                                                Aplicar
+                                            </button>
                                         </div>
                                     </div>
                                     <div className="card-body">
@@ -365,7 +393,7 @@ const Create = ({ auth }) => {
                                                                 {data.componentes.map((componente) => (
                                                                     <tr key={componente.id}>
                                                                         <th scope="row">{componente.id}</th>
-                                                                        <td>{componente.nombre}</td>
+                                                                        <td>{componente.nombre}</td>    
                                                                         <td>{componente.componente_item_proceso}</td>
                                                                         <td>{componente.url}</td>
                                                                         <td>
